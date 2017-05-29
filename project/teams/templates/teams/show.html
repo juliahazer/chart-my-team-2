@@ -1,0 +1,60 @@
+{% block contet %}
+
+<!--form-->
+<div class='container-fluid'>
+  <div class="form-group row">
+    <div class="col-lg-3 col-lg-offset-2
+      col-md-2 col-md-offset-2
+      col-sm-3 col-sm-offset-1
+      col-xs-12
+      col-form-label">
+      <label class="hidden" id="selectTeamsLabel" 
+        for="selectTeams">
+        Choose a Team:
+      </label>
+    </div>
+    <div class="col-lg-3 col-lg-offset-0
+      col-md-6 col-md-offset-0
+      col-sm-7 col-sm-offset-0
+      col-xs-10 col-xs-offset-1"> 
+      <select class="form-control hidden" id="selectTeams">
+      </select>
+    </div>
+  </div>
+</div>
+
+<!--buttons-->
+<div class='container-fluid'>
+  <p class="selectBtns">
+    <a class="active btn btn-lg btnCustom" href="" 
+      data-val="Matches">
+      # Won / Lost
+    </a>
+    <a class="btn btn-lg btnCustom" href="" 
+      data-val="Won">
+      # Won
+    </a>
+    <a class="btn btn-lg btnCustom" href="" 
+      data-val="Lost">
+      # Lost
+    </a>
+    <a class="btn btn-lg btnCustom" href="" 
+      data-val="WinPercentage">
+      Win %
+    </a>
+    <a class="btn btn-lg btnCustom" href="" 
+      data-val="SinglesDoubles">
+      # Singles / Doubles
+    </a>
+    <a class="btn btn-lg btnCustom" href="" 
+      data-val="Singles">
+      # Singles
+    </a>
+    <a class="btn btn-lg btnCustom" href="" 
+      data-val="Doubles">
+      # Doubles
+    </a>
+  </p>
+</div>
+
+{% endblock %}

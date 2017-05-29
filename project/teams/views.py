@@ -9,6 +9,8 @@ teams_blueprint = Blueprint(
 )
 
 @teams_blueprint.route('/')
-def index(id):
-  return "hello"
-  # return render_template('messages/new.html', form=form)
+def index():
+  return render_template('teams/index.html')
+
+# @teams_blueprint.route('/<int:id>')
+# def show(id):

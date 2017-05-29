@@ -9,6 +9,6 @@ players_blueprint = Blueprint(
 )
 
 @players_blueprint.route('/')
-def index(id):
+def index():
   return "hello"
   # return render_template('messages/new.html', form=form)
