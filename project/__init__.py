@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_modus import Modus
 import os
@@ -16,18 +16,13 @@ db = SQLAlchemy(app)
 
 from project.teams.views import teams_blueprint
 from project.players.views import players_blueprint
-# from project.teams.models import Team
-# from project.players.models import Player
 
 app.register_blueprint(teams_blueprint, url_prefix='/teams')
 app.register_blueprint(players_blueprint, url_prefix='/players')
 
 @app.route('/')
 def root(): 
-  # following = current_user.following.all()
-  # following_ids = [f.id for f in following]
-  # messages = Message.query.order_by("timestamp desc").filter(Message.user_id.in_(following_ids)).limit(100).all()
-  return render_template('home.html') #, messages=messages)
+  return redirect(url_for('teams.index'))
 
 @app.after_request
 def add_header(r):
