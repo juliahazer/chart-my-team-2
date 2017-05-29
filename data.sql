@@ -1,0 +1,1 @@
+INSERT INTO teams (season_id, name, area, num_match_scheduled, num_match_played, matches_won, matches_lost) VALUES 
