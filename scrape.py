@@ -15,7 +15,9 @@ data = requests.get('https://www.ustanorcal.com/listteams.asp?leagueid=1823')
 soup = bs4.BeautifulSoup(data.text, "html.parser")  
 
 urlsIdArr = []
-sql_exp = 'INSERT INTO teams (id, season_id, name, area, num_match_scheduled, num_match_played, matches_won, matches_lost) VALUES'
+teams_sql_exp = 'INSERT INTO teams (id, season_id, name, area, num_match_scheduled, num_match_played, matches_won, matches_lost) VALUES'
+
+players_sql_exp = 'INSERT INTO players (player_id, name, city, gender, rating, np_sw, expiration, won, lost, matches, defaults, win_percent, singles, doubles, team_id) VALUES'
 
 pattern = re.compile(r'teaminfo.asp')
 a_tags = soup.findAll('a', href=pattern)
@@ -68,66 +70,103 @@ for i,url_id in enumerate(urlsIdArr):
   matches_lost = int(local_td.next_sibling.next_sibling.next_sibling.next_sibling.text)
 
   if (i > 0):
-    sql_exp += ','
+    teams_sql_exp += ','
 
-  team_name = team_name.replace("'", "''") #SINCE INSERTING INTO SQL replace team name with double single apostrophes
+  #SINCE INSERTING INTO SQL replace any single apostrophes with double single apostrophes  
+  area_text = area_text.replace("'", "''")
+  team_name = team_name.replace("'", "''")
 
-  sql_exp += " ({}, {}, '{}', '{}', {}, {}, {}, {})".format(url_id, season_id, team_name, area_text, num_match_scheduled, num_match_played, matches_won, matches_lost)
+  teams_sql_exp += " ({}, {}, '{}', '{}', {}, {}, {}, {})".format(url_id, season_id, team_name, area_text, num_match_scheduled, num_match_played, matches_won, matches_lost)
 
-sql_exp += ";"
-print(sql_exp)
 
-  # if team_name == '':
-  #   id += 1
-  #   continue
+  # selects the team roster table because it has cells containing 'expiration' & 'rating'
+  for table in tables:
+    if table.find('td', text=re.compile(r'Expiration')) and table.find('td', text=re.compile(r'Rating')):
+      roster_table = table
 
-  # roster_table = []
+  rows = roster_table.select('tr')
+  rows.pop(0) #pop off eligibility row
+  rows.pop(0) #pop off header row
 
-  #selects the team roster table because it has cells containing 'expiration' & 'rating'
-  # for table in tables:
-  #   if table.find('td', string='Expiration') and table.find('td', string='Rating'):
-  #     roster_table = table
+  # create each player insert statement for each player row
+  for row in rows:
+    tds = row.select('td')
 
-  #stores the rows from the roster table and removes the 1st row (that only has 'eligibility')
-  # rows = roster_table.select('tr')
-  # rows.pop(0)
+    player_href = tds[0].find('a')['href']
+    player_id = re.match('.*?([0-9]+)$', player_href).group(1)
 
-  #create the header row
-  # headers = rows.pop(0)
-  # header_tds = headers.select('td')
-  # header_lst = [header_td.text.rstrip() for header_td in header_tds]
-  # header_lst.insert(0, 'Team Name')
-  # header_lst.append('Won')
-  # header_lst.append('Lost')
-  # header_lst.append('Area')
-  # header_lst.append('Season')
-  # header_lst.append('Team ID')
+    sublist_player = [td.text.rstrip() for td in tds]
 
-  #write each player row
-  # for row in rows:
-  #   tds = row.select('td')
-  #   sublist_player = [td.text.rstrip() for td in tds]
-  #   sublist_player.insert(0, team_name)
-  #   sublist_player.append(url_id)
-  #   list_players.append(sublist_player)
+    name = sublist_player[0]
+    city = sublist_player[1]
+    gender = sublist_player[2]
+    rating = sublist_player[3]
+    np_sw = sublist_player[4]
+    expiration = sublist_player[5]
+    matches = sublist_player[7]
 
-  # id += 1
+    defaults = sublist_player[8]
+    if defaults == "-":
+      defaults = 0
+    defaults = int(defaults)
 
-#print(list_players)
+    singles = sublist_player[10]
+    if singles == "-":
+      singles = 0
+    singles = int(singles)
 
-# for player in list_players:
-#   str_win_loss = player[7]
-#   #regex to account for variances in win/loss str
-#   # which could be in formats such as:
-#   #'17/2 (9/0)', '3 / 0', '5/4', '0 / 1'
-#   str_win = re.search(r'(\d+)', str_win_loss).group(0)
-#   str_loss = re.search(r'/\s?(\d+)', str_win_loss).group(1)
-#   player.insert(-1, str_win) #append Win
-#   player.insert(-1, str_loss) #append Loss
-#   #add area (e.g., SF)
-#   player.insert(-1, area_text)
-#   #add season
-#   player.insert(-1, season)
+    doubles = sublist_player[11]
+    if doubles == "-":
+      doubles = 0
+    doubles = int(doubles)
+
+    team_id = url_id
+
+    #regex to account for variances in win/loss str
+    # which could be in formats such as:
+    #'17/2 (9/0)', '3 / 0', '5/4', '0 / 1'
+    str_win_loss = sublist_player[6]
+    str_win = re.search(r'(\d+)', str_win_loss).group(0)
+    str_loss = re.search(r'/\s?(\d+)', str_win_loss).group(1)
+    won = int(str_win)
+    lost = int(str_loss)
+
+    #NEED WIN %
+    win_percent = sublist_player[9]
+    win_percent = win_percent.strip('%')
+    if win_percent == '-':
+      win_percent = 0
+    win_percent = int(float(win_percent))
+
+    #SINCE INSERTING INTO SQL replace any single apostrophes with double single apostrophes  
+    name = name.replace("'", "''")
+
+    if players_sql_exp[-6:] != 'VALUES':
+      players_sql_exp += ','
+
+    players_sql_exp += " ({}, '{}', '{}', '{}', '{}', '{}', '{}', {}, {}, {}, {}, {}, {}, {}, {})".format(player_id, name, city, gender, rating, np_sw, expiration, won, lost, matches, defaults, win_percent, singles, doubles, team_id)
+
+
+teams_sql_exp += ";"
+players_sql_exp += ";"
+
+with open('data.sql', 'w') as file:
+  full_string = teams_sql_exp + '\n\n' + players_sql_exp
+  file.write(full_string)
+file.close()
+
+print(teams_sql_exp)
+print(players_sql_exp)
+
+# players_sql_exp = 'INSERT INTO players (id, name, city, gender, rating, np_sw, expiration, won, lost, matches, defaults, win_percent, singles, doubles, team_id) VALUES'
+
+
+# if team_name == '':
+#   id += 1
+#   continue
+
+# roster_table = []
+
 
 # save the data as a tab-separated file
 # with open('player_data.tsv', 'w') as tsvfile:

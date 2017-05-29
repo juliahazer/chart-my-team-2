@@ -5,7 +5,9 @@ class Player(db.Model):
   __tablename__ = 'players'
 
   id = db.Column(db.Integer, primary_key=True)
+  player_id = db.Column(db.Integer)
   name = db.Column(db.Text)
+  city = db.Column(db.Text)
   gender = db.Column(db.Text)
   rating = db.Column(db.Text)
   np_sw = db.Column(db.Text)
@@ -17,6 +19,7 @@ class Player(db.Model):
   win_percent = db.Column(db.Integer)
   singles = db.Column(db.Integer)
   doubles = db.Column(db.Integer)
+  team_id = db.Column(db.Integer)
 
   #should team ID be a separate thing - can I init with it?
   def __init__(self, name, rating):
