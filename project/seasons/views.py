@@ -11,6 +11,3 @@ seasons_blueprint = Blueprint(
 @seasons_blueprint.route('/')
 def index():
   return render_template('seasons/index.html')
-
-# @teams_blueprint.route('/<int:id>')
-# def show(id):
