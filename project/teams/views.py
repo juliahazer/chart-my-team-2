@@ -10,7 +10,11 @@ teams_blueprint = Blueprint(
 
 @teams_blueprint.route('/')
 def index():
-  return render_template('teams/index.html')
+  teams = Team.query.all()
+  seasons = db.session.query(Team.season_id.distinct()).all()
+  leagues = db.session.query(Team.league_id.distinct()).all()
+  areas = db.session.query(Team.area.distinct()).all()
+  return render_template('teams/index.html', seasons=seasons, leagues=leagues, areas=areas, teams=teams)
 
 # @teams_blueprint.route('/<int:id>')
 # def show(id):

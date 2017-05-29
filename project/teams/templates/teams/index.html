@@ -10,7 +10,73 @@
       col-sm-3 col-sm-offset-1
       col-xs-12
       col-form-label">
-      <label class="hidden" id="selectTeamsLabel" 
+      <label id="selectSeasonsLabel" 
+        for="selectSeasons"> <!--NEED TO FIX ID!!!!!!!-->
+        Choose a Season:
+      </label>
+    </div>
+    <div class="col-lg-3 col-lg-offset-0
+      col-md-6 col-md-offset-0
+      col-sm-7 col-sm-offset-0
+      col-xs-10 col-xs-offset-1">
+      <select class="form-control" id="selectSeasons"> <!--NEED TO FIX ID!!!!!!!-->
+        {% for season in seasons %}
+          <option value="{{ season[0] }}">{{season[0]}}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-lg-3 col-lg-offset-2
+      col-md-2 col-md-offset-2
+      col-sm-3 col-sm-offset-1
+      col-xs-12
+      col-form-label">
+      <label id="selectLeaguesLabel" 
+        for="selectLeagues"> <!--NEED TO FIX ID!!!!!!!-->
+        Choose a League:
+      </label>
+    </div>
+    <div class="col-lg-3 col-lg-offset-0
+      col-md-6 col-md-offset-0
+      col-sm-7 col-sm-offset-0
+      col-xs-10 col-xs-offset-1">
+      <select class="form-control" id="selectLeagues"> <!--NEED TO FIX ID!!!!!!!-->
+        {% for league in leagues %}
+          <option value="{{ league[0] }}">{{league[0]}}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-lg-3 col-lg-offset-2
+      col-md-2 col-md-offset-2
+      col-sm-3 col-sm-offset-1
+      col-xs-12
+      col-form-label">
+      <label id="selectAreasLabel" 
+        for="selectAreas">
+        Choose an Area:
+      </label>
+    </div>
+    <div class="col-lg-3 col-lg-offset-0
+      col-md-6 col-md-offset-0
+      col-sm-7 col-sm-offset-0
+      col-xs-10 col-xs-offset-1">
+      <select class="form-control" id="selectAreas">
+        {% for area in areas %}
+          <option value="{{ area }}">{{area[0]}}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-lg-3 col-lg-offset-2
+      col-md-2 col-md-offset-2
+      col-sm-3 col-sm-offset-1
+      col-xs-12
+      col-form-label">
+      <label id="selectTeamsLabel" 
         for="selectTeams">
         Choose a Team:
       </label>
@@ -18,8 +84,11 @@
     <div class="col-lg-3 col-lg-offset-0
       col-md-6 col-md-offset-0
       col-sm-7 col-sm-offset-0
-      col-xs-10 col-xs-offset-1"> 
-      <select class="form-control hidden" id="selectTeams">
+      col-xs-10 col-xs-offset-1">
+      <select class="form-control" id="selectTeams">
+        {% for team in teams %}
+          <option value="{{ team.id }}">{{team.name}}</option>
+        {% endfor %}
       </select>
     </div>
   </div>
