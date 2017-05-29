@@ -5,6 +5,7 @@ class Team(db.Model):
   __tablename__ = 'teams'
 
   id = db.Column(db.Integer, primary_key=True)
+  league_id = db.Column(db.Integer)
   season_id = db.Column(db.Integer)
   name = db.Column(db.Text)
   area = db.Column(db.Text)

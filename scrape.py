@@ -15,7 +15,7 @@ data = requests.get('https://www.ustanorcal.com/listteams.asp?leagueid=1823')
 soup = bs4.BeautifulSoup(data.text, "html.parser")  
 
 urlsIdArr = []
-teams_sql_exp = 'INSERT INTO teams (id, season_id, name, area, num_match_scheduled, num_match_played, matches_won, matches_lost) VALUES'
+teams_sql_exp = 'INSERT INTO teams (id, league_id, season_id, name, area, num_match_scheduled, num_match_played, matches_won, matches_lost) VALUES'
 
 players_sql_exp = 'INSERT INTO players (player_id, name, city, gender, rating, np_sw, expiration, won, lost, matches, defaults, win_percent, singles, doubles, team_id) VALUES'
 
@@ -42,6 +42,12 @@ for i,url_id in enumerate(urlsIdArr):
 
   #selects all tables from the page
   tables = soup.select("table")
+
+  #get league id
+  pattern_league = re.compile(r'leagueid=')
+  a_league = soup.find('a', href=pattern_league)
+  a_league_href = a_league['href']
+  league_id = int(re.match('.*?([0-9]+)$', a_league_href).group(1))
 
   #get season id
   pattern = re.compile(r'seasonid=')
@@ -76,7 +82,7 @@ for i,url_id in enumerate(urlsIdArr):
   area_text = area_text.replace("'", "''")
   team_name = team_name.replace("'", "''")
 
-  teams_sql_exp += " ({}, {}, '{}', '{}', {}, {}, {}, {})".format(url_id, season_id, team_name, area_text, num_match_scheduled, num_match_played, matches_won, matches_lost)
+  teams_sql_exp += " ({}, {}, {}, '{}', '{}', {}, {}, {}, {})".format(url_id, league_id, season_id, team_name, area_text, num_match_scheduled, num_match_played, matches_won, matches_lost)
 
 
   # selects the team roster table because it has cells containing 'expiration' & 'rating'

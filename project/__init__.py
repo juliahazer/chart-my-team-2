@@ -16,9 +16,11 @@ db = SQLAlchemy(app)
 
 from project.teams.views import teams_blueprint
 from project.players.views import players_blueprint
+from project.seasons.views import seasons_blueprint
 
 app.register_blueprint(teams_blueprint, url_prefix='/teams')
 app.register_blueprint(players_blueprint, url_prefix='/players')
+app.register_blueprint(seasons_blueprint, url_prefix='/seasons')
 
 @app.route('/')
 def root(): 
