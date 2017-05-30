@@ -26,21 +26,23 @@ def show(id):
 
 @leagues_blueprint.route('/json')
 def json():
-  leagues_dict = {}
-  for l in League.query.all():
-    leagues_dict[l.id] = {
+  leagues_list = []
+  for l in League.query.order_by(League.year.desc(), League.name.asc()).all():
+    leagues_list.append({
+      'id': l.id,
       'year': l.year,
       'name': l.name,
       'season_id': l.season_id
-    }
-  return jsonify(leagues_dict)
+    })
+  return jsonify(leagues_list)
 
 @leagues_blueprint.route('/<int:id>/json')
 def teams_json(id):
   curr_league = League.query.get(id)
-  teams_dict = {}
+  teams_list = []
   for t in curr_league.teams.all():
-    teams_dict[t.id] = {
+    teams_list.append({
+      'id': t.id,
       'league_id': t.league_id,
       'season_id': t.season_id,
       'name': t.name,
@@ -49,5 +51,5 @@ def teams_json(id):
       'num_match_played': t.num_match_played,
       'matches_won': t.matches_won,
       'matches_lost': t.matches_lost
-    }
-  return jsonify(teams_dict)
+    })
+  return jsonify(teams_list)

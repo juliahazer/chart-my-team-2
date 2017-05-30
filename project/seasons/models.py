@@ -7,8 +7,8 @@ class Season(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   year = db.Column(db.Integer)
   name = db.Column(db.Text)
-  leagues = db.relationship('League', backref='season', lazy='dynamic')
-  teams = db.relationship('Team', backref='season', lazy='dynamic')
+  leagues = db.relationship('League', order_by="League.name", backref='season', lazy='dynamic')
+  teams = db.relationship('Team', order_by="Team.name", backref='season', lazy='dynamic')
 
   def __init__(self, year, name):
     self.year = year 
