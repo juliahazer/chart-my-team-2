@@ -15,7 +15,7 @@ teams_blueprint = Blueprint(
 def index(id):
   id = int(id)
   curr_league = League.query.get(id)
-  seasons = Season.query.order_by(Season.year.desc(), Season.name.asc()).all()
+  seasons = Season.query.filter(Season.year>=2015).order_by(Season.year.desc(), Season.name.asc()).all()
   leagues = League.query.filter_by(season_id=curr_league.season_id).order_by(League.year.desc(), League.name.asc()).all()
   teams = Team.query.filter_by(league_id=id).order_by(Team.name.asc()).all()
   # areas = db.session.query(Team.area.distinct()).all() #NEED TO FIX THIS TO LIMIT IT!!!
@@ -26,7 +26,7 @@ def show(id, team_id):
   curr_team = Team.query.get(team_id)
   players = Player.query.filter_by(team_id=curr_team.id)
   curr_league = League.query.get(id)
-  seasons = Season.query.order_by(Season.year.desc(), Season.name.asc()).all()
+  seasons = Season.query.filter(Season.year>=2015).order_by(Season.year.desc(), Season.name.asc()).all()
   leagues = League.query.filter_by(season_id=curr_league.season_id).order_by(League.year.desc(), League.name.asc()).all()
   teams = Team.query.filter_by(league_id=id).order_by(Team.name.asc()).all()
   return render_template('teams/show.html', seasons=seasons, leagues=leagues, curr_league=curr_league, teams=teams, curr_team =curr_team, players=players)

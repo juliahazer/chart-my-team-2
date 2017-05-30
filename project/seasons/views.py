@@ -1,4 +1,4 @@
-from flask import redirect, render_template, request, url_for, Blueprint 
+from flask import redirect, render_template, request, url_for, Blueprint, jsonify 
 from sqlalchemy import desc
 from project.seasons.models import Season
 from project.leagues.models import League
@@ -17,7 +17,29 @@ def index():
 
 @seasons_blueprint.route('/<int:id>')
 def show(id):
-  seasons = Season.query.order_by(Season.year.desc(), Season.name.asc()).all()
+  seasons = Season.query.filter(Season.year>=2015).order_by(Season.year.desc(), Season.name.asc()).all()
   leagues = League.query.filter_by(season_id=id).order_by(League.year.desc(), League.name.asc()).all()
   season_id = id
   return render_template('seasons/show.html', seasons=seasons, season_id=season_id, leagues=leagues)
+
+@seasons_blueprint.route('/json')
+def json():
+  seasons_dict = {}
+  for s in Season.query.filter(Season.year>=2015).all():
+    seasons_dict[s.id] = {
+      'year': s.year,
+      'name': s.name
+    }
+  return jsonify(seasons_dict)
+
+@seasons_blueprint.route('/<int:id>/json')
+def leagues_json(id):
+  curr_season = Season.query.get(id)
+  print(curr_season.leagues)
+  leagues_dict = {}
+  for l in curr_season.leagues.all():
+    leagues_dict[l.id] = {
+      'year': l.year,
+      'name': l.name
+    }
+  return jsonify(leagues_dict)

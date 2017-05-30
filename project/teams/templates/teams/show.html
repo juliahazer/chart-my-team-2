@@ -130,3 +130,8 @@
 </div>
 
 {% endblock %}
+
+{% block scripts %}
+  <script src="//d3js.org/d3.v4.min.js"></script>
+  <script src="{{ url_for('static', filename='scripts/app.js') }}"></script>
+{% endblock %}
