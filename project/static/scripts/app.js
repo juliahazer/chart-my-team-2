@@ -40,7 +40,12 @@ var keys;
 
 var g;
 
-d3.json('//localhost:3000/leagues/1874/teams/71238/json', function(data){
+//I NEED TO FIX THIS JSON LINK!!!!!!!!!!!!!!!!
+// var teamId = d3.select('.svgChart')
+//               .attr('data-team-id');
+// var url = '//localhost:3000/leagues/1874/teams/' + teamId + '/json'; 
+var url = window.location.href + "/json"
+d3.json(url, function(data){
   playerObj = data;
   for (var prop in playerObj){
     playerArr.push(playerObj[prop]);
@@ -179,6 +184,9 @@ function drawChart(type){
   zScale = d3.scaleOrdinal()
     .range(colorArr);
 
+  zScaleReverse = d3.scaleOrdinal()
+    .range(colorArr.reverse());
+
   g.append('g')
       .attr('class', 'chart') //NEED TO CHANGE
     .selectAll('g')
@@ -245,7 +253,7 @@ function drawLegend(keys){
       .attr('x', width+85)
       .attr('width', 19)
       .attr('height', 19)
-      .attr('fill', zScale);
+      .attr('fill', zScaleReverse);
 
   legend.append('text')
       .attr('x', width+80)
