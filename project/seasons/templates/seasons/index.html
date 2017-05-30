@@ -19,6 +19,7 @@
       col-sm-7 col-sm-offset-0
       col-xs-10 col-xs-offset-1">
       <select onchange="location = this.value;" class="form-control" id="selectSeasons">
+        <option disabled selected value> -- select an option -- </option>
         {% for season in seasons %}
           <option value="{{ url_for('seasons.show', id=season.id) }}">{{season.year}} {{season.name}}</option>
         {% endfor %}
