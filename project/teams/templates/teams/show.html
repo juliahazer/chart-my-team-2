@@ -89,40 +89,44 @@
   </div>
 </div>
 
-<h1>{{curr_team.name}}</h1>
-
 <!--buttons-->
 <div class='container-fluid'>
   <p class="selectBtns">
     <a class="active btn btn-lg btnCustom" href="" 
-      data-val="Matches">
+      data-val="matches">
       # Won / Lost
     </a>
     <a class="btn btn-lg btnCustom" href="" 
-      data-val="Won">
+      data-val="won">
       # Won
     </a>
     <a class="btn btn-lg btnCustom" href="" 
-      data-val="Lost">
+      data-val="lost">
       # Lost
     </a>
     <a class="btn btn-lg btnCustom" href="" 
-      data-val="WinPercentage">
+      data-val="win_percent">
       Win %
     </a>
     <a class="btn btn-lg btnCustom" href="" 
-      data-val="SinglesDoubles">
+      data-val="singles_doubles">
       # Singles / Doubles
     </a>
     <a class="btn btn-lg btnCustom" href="" 
-      data-val="Singles">
+      data-val="singles">
       # Singles
     </a>
     <a class="btn btn-lg btnCustom" href="" 
-      data-val="Doubles">
+      data-val="doubles">
       # Doubles
     </a>
   </p>
+</div>
+
+<!--SVG Chart-->
+<div>
+  <svg class="svgChart" preserveAspectRatio="xMinYMin meet" 
+  viewBox="0 0 900 500"></svg>
 </div>
 
 {% endblock %}
