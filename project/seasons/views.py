@@ -35,7 +35,6 @@ def json():
 @seasons_blueprint.route('/<int:id>/json')
 def leagues_json(id):
   curr_season = Season.query.get(id)
-  print(curr_season.leagues)
   leagues_dict = {}
   for l in curr_season.leagues.all():
     leagues_dict[l.id] = {

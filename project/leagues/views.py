@@ -25,7 +25,7 @@ def show(id):
   return render_template('leagues/show.html', seasons=seasons, curr_league=curr_league, leagues=leagues, teams=teams)
 
 @leagues_blueprint.route('/json')
-def get_league_json():
+def json():
   leagues_dict = {}
   for l in League.query.all():
     leagues_dict[l.id] = {
@@ -34,3 +34,20 @@ def get_league_json():
       'season_id': l.season_id
     }
   return jsonify(leagues_dict)
+
+@leagues_blueprint.route('/<int:id>/json')
+def teams_json(id):
+  curr_league = League.query.get(id)
+  teams_dict = {}
+  for t in curr_league.teams.all():
+    teams_dict[t.id] = {
+      'league_id': t.league_id,
+      'season_id': t.season_id,
+      'name': t.name,
+      'area': t.area,
+      'num_match_scheduled': t.num_match_scheduled,
+      'num_match_played': t.num_match_played,
+      'matches_won': t.matches_won,
+      'matches_lost': t.matches_lost
+    }
+  return jsonify(teams_dict)
