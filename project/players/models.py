@@ -19,7 +19,7 @@ class Player(db.Model):
   win_percent = db.Column(db.Integer)
   singles = db.Column(db.Integer)
   doubles = db.Column(db.Integer)
-  team_id = db.Column(db.Integer)
+  team_id = db.Column(db.Integer, db.ForeignKey('teams.id'))
 
   #should team ID be a separate thing - can I init with it?
   def __init__(self, name, rating):

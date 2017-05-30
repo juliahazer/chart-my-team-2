@@ -4,7 +4,7 @@
 
 <!--form-->
 <div class='container-fluid'>
-  <div class="form-group row">
+  <div class="form-group row" id="seasonSelectDiv">
     <div class="col-lg-3 col-lg-offset-2
       col-md-2 col-md-offset-2
       col-sm-3 col-sm-offset-1
@@ -19,19 +19,12 @@
       col-md-6 col-md-offset-0
       col-sm-7 col-sm-offset-0
       col-xs-10 col-xs-offset-1">
-      <select onchange="location = this.value;" class="form-control" id="selectSeasons">
-        {% for season in seasons %}
-          <option value="{{ url_for('seasons.show', id=season.id) }}"
-            {% if season.id == curr_league.season_id %}
-              selected
-            {% endif %}
-          >
-            {{season.year}} {{season.name}}</option> 
-        {% endfor %}
+      <select class="form-control" id="selectSeason">
+        <option disabled selected value> -- select an option -- </option>
       </select>
     </div>
   </div>
-  <div class="form-group row">
+  <div class="form-group row hidden" id="leagueSelectDiv">
     <div class="col-lg-3 col-lg-offset-2
       col-md-2 col-md-offset-2
       col-sm-3 col-sm-offset-1
@@ -46,20 +39,11 @@
       col-md-6 col-md-offset-0
       col-sm-7 col-sm-offset-0
       col-xs-10 col-xs-offset-1">
-      <select onchange="location = this.value;" class="form-control" id="selectLeagues">
-        {% for league in leagues %}
-          <option value="{{ url_for('teams.index', id=league.id) }}"
-            {% if league.id == curr_league.id %}
-              selected
-            {% endif %}
-          >
-            {{league.year}} {{league.name}}
-          </option>
-        {% endfor %}
+      <select onchange="location = this.value;" class="form-control" id="selectLeague">
       </select>
     </div>
   </div>
-  <div class="form-group row">
+  <div class="form-group row hidden" id="teamSelectDiv">
     <div class="col-lg-3 col-lg-offset-2
       col-md-2 col-md-offset-2
       col-sm-3 col-sm-offset-1
@@ -74,14 +58,12 @@
       col-md-6 col-md-offset-0
       col-sm-7 col-sm-offset-0
       col-xs-10 col-xs-offset-1">
-      <select onchange="location = this.value;" class="form-control" id="selectTeams">
-        <option disabled selected value> -- select an option -- </option>
-        {% for team in teams %}
-          <option value="{{ url_for('teams.show', id=curr_league.id, team_id=team.id) }}">{{team.name}}</option>
-        {% endfor %}
+      <select onchange="location = this.value;" class="form-control" id="selectTeam">
       </select>
     </div>
   </div>
 </div>
+
+<script src="{{ url_for('static', filename='scripts/dropdown.js') }}"></script>
 
 {% endblock %}

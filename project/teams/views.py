@@ -12,30 +12,29 @@ teams_blueprint = Blueprint(
 )
 
 @teams_blueprint.route('/')
-def index(id):
-  id = int(id)
-  curr_league = League.query.get(id)
-  seasons = Season.query.filter(Season.year>=2015).order_by(Season.year.desc(), Season.name.asc()).all()
-  leagues = League.query.filter_by(season_id=curr_league.season_id).order_by(League.year.desc(), League.name.asc()).all()
-  teams = Team.query.filter_by(league_id=id).order_by(Team.name.asc()).all()
+def index():
+  # curr_league = League.query.get(id)
+  # seasons = Season.query.filter(Season.year>=2015).order_by(Season.year.desc(), Season.name.asc()).all()
+  # leagues = League.query.filter_by(season_id=curr_league.season_id).order_by(League.year.desc(), League.name.asc()).all()
+  # teams = Team.query.filter_by(league_id=id).order_by(Team.name.asc()).all()
   # areas = db.session.query(Team.area.distinct()).all() #NEED TO FIX THIS TO LIMIT IT!!!
-  return render_template('teams/index.html', seasons=seasons, leagues=leagues, curr_league=curr_league, teams=teams)
+  return render_template('teams/index.html')#, seasons=seasons, leagues=leagues, curr_league=curr_league, teams=teams)
 
-@teams_blueprint.route('/<int:team_id>')
-def show(id, team_id):
-  curr_team = Team.query.get(team_id)
-  players = Player.query.filter_by(team_id=curr_team.id)
-  curr_league = League.query.get(id)
+@teams_blueprint.route('/<int:id>')
+def show(id):
+  curr_team = Team.query.get(id)
+  players = curr_team.players.all();
+  curr_league = League.query.get(curr_team.league_id)
   seasons = Season.query.filter(Season.year>=2015).order_by(Season.year.desc(), Season.name.asc()).all()
   leagues = League.query.filter_by(season_id=curr_league.season_id).order_by(League.year.desc(), League.name.asc()).all()
-  teams = Team.query.filter_by(league_id=id).order_by(Team.name.asc()).all()
+  teams = Team.query.filter_by(league_id=curr_team.league_id).order_by(Team.name.asc()).all()
   return render_template('teams/show.html', seasons=seasons, leagues=leagues, curr_league=curr_league, teams=teams, curr_team =curr_team, players=players)
 
-@teams_blueprint.route('/<int:team_id>/json')
-def get_team_json(id, team_id):
+@teams_blueprint.route('/<int:id>/json')
+def get_team_json(id):
+  curr_team = Team.query.get(id)
   players_dict = {}
-  curr_team = Team.query.get(team_id)
-  for p in Player.query.filter_by(team_id=curr_team.id).all():
+  for p in curr_team.players.all():
     players_dict[p.id] = {
       'team_id': p.team_id,
       'player_id': p.player_id,
