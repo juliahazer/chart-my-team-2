@@ -11,7 +11,7 @@
       col-xs-12
       col-form-label">
       <label id="selectSeasonsLabel" 
-        for="selectSeasons"> <!--NEED TO FIX ID!!!!!!!-->
+        for="selectSeasons"> 
         Choose a Season:
       </label>
     </div>
@@ -19,9 +19,14 @@
       col-md-6 col-md-offset-0
       col-sm-7 col-sm-offset-0
       col-xs-10 col-xs-offset-1">
-      <select class="form-control" id="selectSeasons"> <!--NEED TO FIX ID!!!!!!!-->
+      <select onchange="location = this.value;" class="form-control" id="selectSeasons">
         {% for season in seasons %}
-          <option value="{{ season[0] }}">{{season[0]}}</option>
+          <option value="{{ url_for('seasons.show', id=season.id) }}"
+            {% if season.id == curr_league.season_id %}
+              selected
+            {% endif %}
+          >
+            {{season.year}} {{season.name}}</option> 
         {% endfor %}
       </select>
     </div>
@@ -33,7 +38,7 @@
       col-xs-12
       col-form-label">
       <label id="selectLeaguesLabel" 
-        for="selectLeagues"> <!--NEED TO FIX ID!!!!!!!-->
+        for="selectLeagues"> 
         Choose a League:
       </label>
     </div>
@@ -41,31 +46,15 @@
       col-md-6 col-md-offset-0
       col-sm-7 col-sm-offset-0
       col-xs-10 col-xs-offset-1">
-      <select class="form-control" id="selectLeagues"> <!--NEED TO FIX ID!!!!!!!-->
+      <select onchange="location = this.value;" class="form-control" id="selectLeagues">
         {% for league in leagues %}
-          <option value="{{ league[0] }}">{{league[0]}}</option>
-        {% endfor %}
-      </select>
-    </div>
-  </div>
-  <div class="form-group row">
-    <div class="col-lg-3 col-lg-offset-2
-      col-md-2 col-md-offset-2
-      col-sm-3 col-sm-offset-1
-      col-xs-12
-      col-form-label">
-      <label id="selectAreasLabel" 
-        for="selectAreas">
-        Choose an Area:
-      </label>
-    </div>
-    <div class="col-lg-3 col-lg-offset-0
-      col-md-6 col-md-offset-0
-      col-sm-7 col-sm-offset-0
-      col-xs-10 col-xs-offset-1">
-      <select class="form-control" id="selectAreas">
-        {% for area in areas %}
-          <option value="{{ area }}">{{area[0]}}</option>
+          <option value="{{ url_for('teams.index', id=league.id) }}"
+            {% if league.id == curr_league.id %}
+              selected
+            {% endif %}
+          >
+            {{league.year}} {{league.name}}
+          </option>
         {% endfor %}
       </select>
     </div>
@@ -85,47 +74,14 @@
       col-md-6 col-md-offset-0
       col-sm-7 col-sm-offset-0
       col-xs-10 col-xs-offset-1">
-      <select class="form-control" id="selectTeams">
+      <select onchange="location = this.value;" class="form-control" id="selectTeams">
+        <option disabled selected value> -- select an option -- </option>
         {% for team in teams %}
-          <option value="{{ team.id }}">{{team.name}}</option>
+          <option value="{{ url_for('teams.show', id=curr_league.id, team_id=team.id) }}">{{team.name}}</option>
         {% endfor %}
       </select>
     </div>
   </div>
-</div>
-
-<!--buttons-->
-<div class='container-fluid'>
-  <p class="selectBtns">
-    <a class="active btn btn-lg btnCustom" href="" 
-      data-val="Matches">
-      # Won / Lost
-    </a>
-    <a class="btn btn-lg btnCustom" href="" 
-      data-val="Won">
-      # Won
-    </a>
-    <a class="btn btn-lg btnCustom" href="" 
-      data-val="Lost">
-      # Lost
-    </a>
-    <a class="btn btn-lg btnCustom" href="" 
-      data-val="WinPercentage">
-      Win %
-    </a>
-    <a class="btn btn-lg btnCustom" href="" 
-      data-val="SinglesDoubles">
-      # Singles / Doubles
-    </a>
-    <a class="btn btn-lg btnCustom" href="" 
-      data-val="Singles">
-      # Singles
-    </a>
-    <a class="btn btn-lg btnCustom" href="" 
-      data-val="Doubles">
-      # Doubles
-    </a>
-  </p>
 </div>
 
 {% endblock %}

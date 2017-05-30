@@ -1,4 +1,6 @@
-{% block contet %}
+{% extends 'base.html' %}
+
+{% block content %}
 
 <!--form-->
 <div class='container-fluid'>
@@ -22,6 +24,8 @@
     </div>
   </div>
 </div>
+
+<h1>CURRENT TEAM: {{team.name}}</h1>
 
 <!--buttons-->
 <div class='container-fluid'>
