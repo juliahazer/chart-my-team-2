@@ -7,6 +7,8 @@ class Team(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   league_id = db.Column(db.Integer, db.ForeignKey('leagues.id'))
   season_id = db.Column(db.Integer, db.ForeignKey('seasons.id'))
+  org_id = db.Column(db.Integer)
+  facility_id = db.Column(db.Integer)
   name = db.Column(db.Text)
   area = db.Column(db.Text)
   num_match_scheduled = db.Column(db.Integer)
