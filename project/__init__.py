@@ -20,6 +20,7 @@ from project.seasons.views import seasons_blueprint
 from project.leagues.views import leagues_blueprint
 
 from project.scorecards.models import Scorecard
+from project.matches.models import Match
 
 app.register_blueprint(teams_blueprint, url_prefix='/teams')
 app.register_blueprint(players_blueprint, url_prefix='/leagues/<int:id>/teams/<int:t_id>/players')

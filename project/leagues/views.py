@@ -47,7 +47,9 @@ def json():
 def teams_json(id):
   curr_league = League.query.get(id)
   teams_list = []
+  # teams_id_list = []
   for t in curr_league.teams.all():
+    # teams_id_list.append(t.id)
     teams_list.append({
       'id': t.id,
       'league_id': t.league_id,
@@ -59,4 +61,5 @@ def teams_json(id):
       'matches_won': t.matches_won,
       'matches_lost': t.matches_lost
     })
+  # print(teams_id_list)
   return jsonify(teams_list)

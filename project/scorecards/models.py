@@ -9,6 +9,7 @@ class Scorecard(db.Model):
   visitor_team_id = db.Column(db.Integer, db.ForeignKey('teams.id'))
   date = db.Column(db.DateTime)
   league_id = db.Column(db.Integer, db.ForeignKey('leagues.id'))
+  matches = db.relationship('Match', backref='scorecard', lazy='dynamic')
 
   def __init__(self, date, home_team_id, visitor_team_id):
     self.date = date 
