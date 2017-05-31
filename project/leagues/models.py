@@ -9,6 +9,7 @@ class League(db.Model):
   name = db.Column(db.Text)
   season_id = db.Column(db.Integer, db.ForeignKey('seasons.id'))
   teams = db.relationship('Team', order_by="Team.name", backref='league', lazy='dynamic')
+  scorecards = db.relationship('Scorecard', backref='league', lazy='dynamic')
 
   def __init__(self, year, name, season_id):
     self.year = year 
