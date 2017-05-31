@@ -26,7 +26,7 @@ app.register_blueprint(leagues_blueprint, url_prefix='/leagues')
 
 @app.route('/')
 def root(): 
-  return redirect(url_for('seasons.index'))
+  return redirect(url_for('teams.index'))
 
 @app.after_request
 def add_header(r):
