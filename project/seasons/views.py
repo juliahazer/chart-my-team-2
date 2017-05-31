@@ -12,12 +12,12 @@ seasons_blueprint = Blueprint(
 
 @seasons_blueprint.route('/')
 def index():
-  seasons = Season.query.order_by(Season.year.desc(), Season.name.asc()).all()
+  seasons = Season.query.filter(Season.year>=2014).order_by(Season.year.desc(), Season.name.asc()).all()
   return render_template('seasons/index.html', seasons=seasons)
 
 @seasons_blueprint.route('/<int:id>')
 def show(id):
-  seasons = Season.query.filter(Season.year>=2015).order_by(Season.year.desc(), Season.name.asc()).all()
+  seasons = Season.query.filter(Season.year>=2014).order_by(Season.year.desc(), Season.name.asc()).all()
   leagues = League.query.filter_by(season_id=id).order_by(League.year.desc(), League.name.asc()).all()
   season_id = id
   return render_template('seasons/show.html', seasons=seasons, season_id=season_id, leagues=leagues)
@@ -25,7 +25,7 @@ def show(id):
 @seasons_blueprint.route('/json')
 def json():
   seasons_list = []
-  for s in Season.query.filter(Season.year>=2015).order_by(Season.year.desc(), Season.name.asc()).all():
+  for s in Season.query.filter(Season.year>=2014).order_by(Season.year.desc(), Season.name.asc()).all():
     seasons_list.append({
       'id': s.id,
       'year': s.year,

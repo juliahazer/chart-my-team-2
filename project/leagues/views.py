@@ -18,7 +18,7 @@ def index():
 
 @leagues_blueprint.route('/<int:id>')
 def show(id):
-  seasons = Season.query.filter(Season.year>=2015).order_by(Season.year.desc(), Season.name.asc()).all()
+  seasons = Season.query.filter(Season.year>=2014).order_by(Season.year.desc(), Season.name.asc()).all()
   curr_league = League.query.get(int(id))
   leagues = League.query.filter_by(season_id=curr_league.season_id).order_by(League.year.desc(), League.name.asc()).all()
   teams = Team.query.filter_by(league_id=id).order_by(Team.name.asc()).all()
@@ -26,6 +26,13 @@ def show(id):
 
 @leagues_blueprint.route('/json')
 def json():
+  # leagues_list_2 = []
+  # leagues_sub = League.query.filter(League.year>=2014).order_by(League.id.desc()).all()
+  # for l in leagues_sub:
+  #   leagues_list_2.append(l.id)
+  # print(len(leagues_list_2))
+  # print(leagues_list_2)
+
   leagues_list = []
   for l in League.query.order_by(League.year.desc(), League.name.asc()).all():
     leagues_list.append({
