@@ -9,9 +9,13 @@ class Match(db.Model):
   match_type = db.Column(db.Text)
   line = db.Column(db.Integer)
   h_1_player_id = db.Column(db.Integer)
+  h_1_player_name = db.Column(db.Text)
   h_2_player_id = db.Column(db.Integer)
+  h_2_player_name = db.Column(db.Text)
   v_1_player_id = db.Column(db.Integer)
+  v_1_player_name = db.Column(db.Text)
   v_2_player_id = db.Column(db.Integer)
+  v_2_player_name = db.Column(db.Text)
   winning_score = db.Column(db.Text)
   winner = db.Column(db.Text)
 

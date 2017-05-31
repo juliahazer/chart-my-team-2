@@ -56,4 +56,5 @@ with open('scorecards.sql', 'w') as file:
   file.write(scorecards_sql_exp)
 file.close()
 
+print(scorecard_ids);
 print(scorecards_sql_exp)
