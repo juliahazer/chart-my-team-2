@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or 'postgres://localhost/chart-my-team-db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_ECHO'] = False
+app.config['SQLALCHEMY_ECHO'] = True
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY') or "it's a secret"
 
@@ -18,14 +18,18 @@ from project.teams.views import teams_blueprint
 from project.players.views import players_blueprint
 from project.seasons.views import seasons_blueprint
 from project.leagues.views import leagues_blueprint
+from project.scorecards.views import scorecards_blueprint
+from project.matches.views import matches_blueprint
 
 from project.scorecards.models import Scorecard
 from project.matches.models import Match
 
 app.register_blueprint(teams_blueprint, url_prefix='/teams')
-app.register_blueprint(players_blueprint, url_prefix='/leagues/<int:id>/teams/<int:t_id>/players')
 app.register_blueprint(seasons_blueprint, url_prefix='/seasons')
 app.register_blueprint(leagues_blueprint, url_prefix='/leagues')
+app.register_blueprint(scorecards_blueprint, url_prefix='/teams/<int:id>/scorecards')
+app.register_blueprint(matches_blueprint, url_prefix='/matches')
+app.register_blueprint(players_blueprint, url_prefix='/players')
 
 @app.route('/')
 def root(): 

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class='container-fluid'>
+  <h1>{{scorecards[0].team_h.name}}</h1>
+  <h2>{{scorecards[0].league.name}}</h2>
+  <table class="table">
+    <thead>
+      <th>#</th>
+      <th>Home Team</th>
+      <th>Visitor Team</th>
+      <th>Date</th>
+      <th>Link to USTA</th>
+    </thead>
+    <tbody>
+      {% for scorecard in scorecards %}
+        <tr>
+          <td>{{loop.index}}</td>
+          <td>
+            <a href="{{ url_for('teams.show', id=scorecard.home_team_id) }}"> {{scorecard.team_h.name}}
+            </a>
+          </td>
+          <td>
+            <a href="{{ url_for('teams.show', id=scorecard.visitor_team_id) }}"> 
+              {{scorecard.team_v.name}}
+            </a>
+          </td>
+          <td>{{scorecard.date.strftime('%m-%d-%y')}}</td>
+          <td><a href="https://www.ustanorcal.com/scorecard.asp?id={{scorecard.id}}" target="_blank">link</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  <table>
+</div>
+
+{% endblock %}
+

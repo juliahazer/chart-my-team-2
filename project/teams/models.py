@@ -16,8 +16,8 @@ class Team(db.Model):
   matches_won = db.Column(db.Integer)
   matches_lost = db.Column(db.Integer)
   players = db.relationship('Player', backref='team', lazy='dynamic')
-  v_scorecards = db.relationship('Scorecard', foreign_keys='Scorecard.home_team_id', backref='team_v', lazy='dynamic')
-  h_scorecards = db.relationship('Scorecard', foreign_keys='Scorecard.visitor_team_id', backref='team_h', lazy='dynamic')
+  h_scorecards = db.relationship('Scorecard', foreign_keys='Scorecard.home_team_id', backref='team_h', lazy='dynamic')
+  v_scorecards = db.relationship('Scorecard', foreign_keys='Scorecard.visitor_team_id', backref='team_v', lazy='dynamic')
 
   #should team ID be a separate thing - can I init with it?
   def __init__(self, season_id, name, area):
