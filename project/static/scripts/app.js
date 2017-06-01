@@ -13,7 +13,6 @@ var height = 500 - margin.top - margin.bottom;
 // var teamsArr = [];
 // var teamsObj = {};
 var playerArr = [];
-var playerObj = {};
 
 var optionHtml = '';
 var optionArr = [];
@@ -46,10 +45,7 @@ var g;
 // var url = '//localhost:3000/leagues/1874/teams/' + teamId + '/json'; 
 var url = window.location.href + "/json"
 d3.json(url, function(data){
-  playerObj = data;
-  for (var prop in playerObj){
-    playerArr.push(playerObj[prop]);
-  }
+  playerArr = data;
   newTeamId();
 })
 
@@ -58,9 +54,8 @@ function newTeamId() { //(chartId){
   //NEED TO UPDATE THIS ID IF CHANGE
   // playerArr = teamsObj[chartId];
 
-  var firstId = Object.keys(playerObj)[0];
-  teamName = playerObj[firstId].team_name;
-  area = playerObj[firstId].area;
+  teamName = playerArr[0].team_name;
+  area = playerArr[0].area;
 
   tooltip = d3.select("body")
                   .append("div")

@@ -63,6 +63,15 @@
   </div>
 </div>
 
+{% if not has_rosters %}
+
+<h1>Sorry, the data for this team is not yet available</h1>
+<h1>{{curr_team.name}}</h1>
+
+{% endif %}
+
+{% if has_rosters %}
+
 <!--buttons-->
 <div class='container-fluid'>
   <p class="selectBtns">
@@ -82,11 +91,11 @@
       data-val="win_percent">
       Win %
     </a>
-    <a class="btn btn-lg btnCustom" href="" 
+    <a class="btn btn-lg btnCustom {% if 'Combo' in curr_team.league.name or 'Mixed' in curr_team.league.name %} hidden{% endif %}" href="" 
       data-val="singles_doubles">
       # Singles / Doubles
     </a>
-    <a class="btn btn-lg btnCustom" href="" 
+    <a class="btn btn-lg btnCustom {% if 'Combo' in curr_team.league.name or 'Mixed' in curr_team.league.name %} hidden{% endif %}" href="" 
       data-val="singles">
       # Singles
     </a>
@@ -97,9 +106,14 @@
   </p>
 </div>
 
+
+<h1>{{curr_team.league.name}}</h1>
+
+{% endif %}
+
 <!--SVG Chart-->
 <div>
-  <svg id="svgTag" class="svgChart" data-season-id="{{curr_team.season_id}}" data-league-id="{{curr_team.league_id}}" data-team-id="{{curr_team.id}}" preserveAspectRatio="xMinYMin meet" 
+  <svg id="svgTag" class="svgChart {% if not has_rosters %}hidden{% endif %}" data-season-id="{{curr_team.season_id}}" data-league-id="{{curr_team.league_id}}" data-team-id="{{curr_team.id}}" preserveAspectRatio="xMinYMin meet" 
   viewBox="0 0 900 500"></svg>
 </div>
 
@@ -107,6 +121,8 @@
 
 {% block scripts %}
   <script src="{{ url_for('static', filename='scripts/dropdown.js') }}"></script>
-  <script src="//d3js.org/d3.v4.min.js"></script>
-  <script src="{{ url_for('static', filename='scripts/app.js') }}"></script>
+  {% if has_rosters %}
+    <script src="//d3js.org/d3.v4.min.js"></script>
+    <script src="{{ url_for('static', filename='scripts/app.js') }}"></script>
+  {% endif %}
 {% endblock %}

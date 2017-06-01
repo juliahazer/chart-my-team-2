@@ -84,10 +84,6 @@ for id in teams_id_list:
     if rosters_sql_exp[-6:] != 'VALUES':
       rosters_sql_exp += ','
 
-    roster_id = str(team_id) + str(player_id)
-    roster_id = int(roster_id)
-    print(roster_id)
-
     rosters_sql_exp += " ({}, '{}', '{}', '{}', '{}', '{}', '{}', {}, {}, {}, {}, {}, {}, {}, {})".format(player_id, name, city, gender, rating, np_sw, expiration, won, lost, matches, defaults, win_percent, singles, doubles, team_id)
 
 rosters_sql_exp += ";"
