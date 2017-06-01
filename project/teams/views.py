@@ -77,39 +77,45 @@ def matches_json(id):
 
   for m in matches:
     obj = {
-      'scorecard_id': match.scorecard.id,
+      'id': m.id,
+      'scorecard_id': m.scorecard.id,
       'type': m.match_type,
       'line': m.line,
-      'winning_score': match.winning_score
+      'winning_score': m.winning_score
     }
-    obj['date'] = match.scorecard.date.strftime('%m-%d-%y')
-    if match.are_home:
+    obj['date'] = m.scorecard.date.strftime('%m-%d-%y')
+    if m.are_home:
       obj['location'] = 'Home'
-      obj['opponent'] = match.scorecard.team_v.name
-      obj['opponent_id'] = match.scorecard.team_v.id
-      obj['team_player_1'] = match.h_1_player_name
-      obj['team_player_1_id'] = match.h_1_player_id
-      obj['opp_player_1'] = match.v_1_player_name
-      obj['opp_player_1_id'] = match.v_1_player_id
-      if match.match_type == 'doubles':
-        obj['team_player_2'] = match.h_2_player_name
-        obj['team_player_2_id'] = match.h_2_player_id
-        obj['opp_player_2'] = match.v_2_player_name
-        obj['opp_player_2_id'] = match.v_2_player_id
+      obj['opponent'] = m.scorecard.team_v.name
+      obj['opponent_id'] = m.scorecard.team_v.id
+      obj['team_player_1'] = m.h_1_player_name
+      obj['team_player_1_id'] = m.h_1_player_id
+      obj['opp_player_1'] = m.v_1_player_name
+      obj['opp_player_1_id'] = m.v_1_player_id
+      if m.match_type == 'doubles':
+        obj['team_player_2'] = m.h_2_player_name
+        obj['team_player_2_id'] = m.h_2_player_id
+        obj['opp_player_2'] = m.v_2_player_name
+        obj['opp_player_2_id'] = m.v_2_player_id
     else:
       obj['location'] = 'Away'
-      obj['opponent'] = match.scorecard.team_h.name
-      obj['opponent_id'] = match.scorecard.team_h.id
-      obj['team_player_1'] = match.v_1_player_name
-      obj['team_player_1_id'] = match.v_1_player_id
-      obj['opp_player_1'] = match.h_1_player_name
-      obj['opp_player_1_id'] = match.h_1_player_id
-      if match.match_type == 'doubles':
-        obj['team_player_2'] = match.v_2_player_name
-        obj['team_player_2_id'] = match.v_2_player_id
-        obj['opp_player_2'] = match.h_2_player_name
-        obj['opp_player_2_id'] = match.h_2_player_id
-    if match.are_home and match.winner == 'Home':
+      obj['opponent'] = m.scorecard.team_h.name
+      obj['opponent_id'] = m.scorecard.team_h.id
+      obj['team_player_1'] = m.v_1_player_name
+      obj['team_player_1_id'] = m.v_1_player_id
+      obj['opp_player_1'] = m.h_1_player_name
+      obj['opp_player_1_id'] = m.h_1_player_id
+      if m.match_type == 'doubles':
+        obj['team_player_2'] = m.v_2_player_name
+        obj['team_player_2_id'] = m.v_2_player_id
+        obj['opp_player_2'] = m.h_2_player_name
+        obj['opp_player_2_id'] = m.h_2_player_id
+    if m.match_type != 'doubles':
+        obj['team_player_2'] = ''
+        obj['team_player_2_id'] = ''
+        obj['opp_player_2'] = ''
+        obj['opp_player_2_id'] = ''
+    if m.are_home and m.winner == 'Home':
       obj['winner'] = 'Team'
     else:
       obj['winner'] = 'Opponent'

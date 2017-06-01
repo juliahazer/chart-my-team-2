@@ -34,16 +34,14 @@
     </div>
   </div>
 
-
   <div class="container">
-
-    {% for message in get_flashed_messages() %}
-      <div class="alert alert-{{ message['status'] }}">{{ message['text'] }}</div>
-    {% endfor %}
 
     {% block content %}
     {% endblock %}
   </div>
+
+  {% block table %}
+  {% endblock %}
 
   {% block scripts %}
   {% endblock %}
