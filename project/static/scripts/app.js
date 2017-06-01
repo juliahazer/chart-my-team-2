@@ -145,13 +145,27 @@ function drawChart(type){
   //sort by y-axis value (and if same values, then sort by last name alphabetically)
   if (type === 'singles_doubles'){
     playerArr.sort(function(a,b) { 
-      return Number(a.matches) - Number(b.matches) || a.name.localeCompare(b.name);
+      return ((Number(a.matches) - Number(b.matches) || 
+        (Number(a.doubles) - Number(b.doubles)))
+        || a.name.localeCompare(b.name));
     });
     yMax = d3.max(playerArr.map(d => {
       num_data = Number(d['matches']);
       return num_data;
     }));
-  } else if (type === 'win_percent'){
+  } 
+  else if (type === 'matches'){
+    playerArr.sort(function(a,b) { 
+      return ((Number(a.matches) - Number(b.matches) || 
+        (Number(a.won) - Number(b.won)))
+        || a.name.localeCompare(b.name));
+    });
+    yMax = d3.max(playerArr.map(d => {
+      num_data = Number(d['matches']);
+      return num_data;
+    }));
+  } 
+  else if (type === 'win_percent'){
     playerArr.sort(function(a,b) {
       return Number(a.win_percent) - Number(b.win_percent) || a.name.localeCompare(b.name);
     });
