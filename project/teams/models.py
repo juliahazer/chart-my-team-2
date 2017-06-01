@@ -15,7 +15,7 @@ class Team(db.Model):
   num_match_played = db.Column(db.Integer)
   matches_won = db.Column(db.Integer)
   matches_lost = db.Column(db.Integer)
-  players = db.relationship('Player', backref='team', lazy='dynamic')
+  rosters = db.relationship('Roster', backref='team', lazy='dynamic')
   h_scorecards = db.relationship('Scorecard', foreign_keys='Scorecard.home_team_id', backref='team_h', lazy='dynamic')
   v_scorecards = db.relationship('Scorecard', foreign_keys='Scorecard.visitor_team_id', backref='team_v', lazy='dynamic')
 

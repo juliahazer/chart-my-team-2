@@ -15,7 +15,7 @@ modus = Modus(app)
 db = SQLAlchemy(app)
 
 from project.teams.views import teams_blueprint
-from project.players.views import players_blueprint
+from project.rosters.views import rosters_blueprint
 from project.seasons.views import seasons_blueprint
 from project.leagues.views import leagues_blueprint
 from project.scorecards.views import scorecards_blueprint
@@ -29,7 +29,7 @@ app.register_blueprint(seasons_blueprint, url_prefix='/seasons')
 app.register_blueprint(leagues_blueprint, url_prefix='/leagues')
 app.register_blueprint(scorecards_blueprint, url_prefix='/teams/<int:id>/scorecards')
 app.register_blueprint(matches_blueprint, url_prefix='/matches')
-app.register_blueprint(players_blueprint, url_prefix='/players')
+app.register_blueprint(rosters_blueprint, url_prefix='/rosters')
 
 @app.route('/')
 def root(): 

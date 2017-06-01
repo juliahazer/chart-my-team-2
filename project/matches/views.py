@@ -11,5 +11,4 @@ matches_blueprint = Blueprint(
 @matches_blueprint.route('/')
 def index():
   matches = Match.query.all()
-  return "hello"
-  # return render_template('matches/index.html', matches=matches)
+  return render_template('matches/index.html', matches=matches)

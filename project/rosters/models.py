@@ -1,8 +1,8 @@
 from project import db
 
-class Player(db.Model):
+class Roster(db.Model):
 
-  __tablename__ = 'players'
+  __tablename__ = 'rosters'
 
   id = db.Column(db.Integer, primary_key=True)
   player_id = db.Column(db.Integer)
