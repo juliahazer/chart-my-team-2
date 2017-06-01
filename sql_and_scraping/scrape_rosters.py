@@ -10,8 +10,8 @@ rosters_sql_exp = 'INSERT INTO rosters (player_id, name, city, gender, rating, n
    
 url = 'https://www.ustanorcal.com/teaminfo.asp?id='
 
-for id in teams_id_list:
-  curr_url = url + str(id)
+for home_team_id in teams_id_list:
+  curr_url = url + str(home_team_id)
   data = requests.get(curr_url)
   soup = bs4.BeautifulSoup(data.text, "html.parser")
 
@@ -31,60 +31,62 @@ for id in teams_id_list:
   for row in rows:
     tds = row.select('td')
 
-    player_href = tds[0].find('a')['href']
-    player_id = re.match('.*?([0-9]+)$', player_href).group(1)
+    if tds[0].find('a') is not None:
+      player_href = tds[0].find('a')['href']
+      player_id = re.match('.*?([0-9]+)$', player_href).group(1)
 
-    sublist_player = [td.text.rstrip() for td in tds]
+      sublist_player = [td.text.rstrip() for td in tds]
 
-    name = sublist_player[0]
-    city = sublist_player[1]
-    gender = sublist_player[2]
-    rating = sublist_player[3]
-    np_sw = sublist_player[4]
-    expiration = sublist_player[5]
-    matches = sublist_player[7]
+      name = sublist_player[0]
+      city = sublist_player[1]
+      gender = sublist_player[2]
+      rating = sublist_player[3]
+      np_sw = sublist_player[4]
+      expiration = sublist_player[5]
+      matches = sublist_player[7]
 
-    defaults = sublist_player[8]
-    if defaults == "-":
-      defaults = 0
-    defaults = int(defaults)
+      defaults = sublist_player[8]
+      if defaults == "-":
+        defaults = 0
+      defaults = int(defaults)
 
-    singles = sublist_player[10]
-    if singles == "-":
-      singles = 0
-    singles = int(singles)
+      singles = sublist_player[10]
+      if singles == "-":
+        singles = 0
+      singles = int(singles)
 
-    doubles = sublist_player[11]
-    if doubles == "-":
-      doubles = 0
-    doubles = int(doubles)
+      doubles = sublist_player[11]
+      if doubles == "-":
+        doubles = 0
+      doubles = int(doubles)
 
-    team_id = id
-    print(team_id)
+      team_id = home_team_id
+      print(team_id)
 
-    #regex to account for variances in win/loss str
-    # which could be in formats such as:
-    #'17/2 (9/0)', '3 / 0', '5/4', '0 / 1'
-    str_win_loss = sublist_player[6]
-    str_win = re.search(r'(\d+)', str_win_loss).group(0)
-    str_loss = re.search(r'/\s?(\d+)', str_win_loss).group(1)
-    won = int(str_win)
-    lost = int(str_loss)
+      #regex to account for variances in win/loss str
+      # which could be in formats such as:
+      #'17/2 (9/0)', '3 / 0', '5/4', '0 / 1'
+      str_win_loss = sublist_player[6]
+      str_win = re.search(r'(\d+)', str_win_loss).group(0)
+      str_loss = re.search(r'/\s?(\d+)', str_win_loss).group(1)
+      won = int(str_win)
+      lost = int(str_loss)
 
-    #NEED WIN %
-    win_percent = sublist_player[9]
-    win_percent = win_percent.strip('%')
-    if win_percent == '-':
-      win_percent = 0
-    win_percent = int(float(win_percent))
+      #NEED WIN %
+      win_percent = sublist_player[9]
+      win_percent = win_percent.strip('%')
+      if win_percent == '-':
+        win_percent = 0
+      win_percent = int(float(win_percent))
 
-    #SINCE INSERTING INTO SQL replace any single apostrophes with double single apostrophes  
-    name = name.replace("'", "''")
+      #SINCE INSERTING INTO SQL replace any single apostrophes with double single apostrophes  
+      name = name.replace("'", "''")
 
-    if rosters_sql_exp[-6:] != 'VALUES':
-      rosters_sql_exp += ','
+      if rosters_sql_exp[-6:] != 'VALUES':
+        rosters_sql_exp += ','
 
-    rosters_sql_exp += " ({}, '{}', '{}', '{}', '{}', '{}', '{}', {}, {}, {}, {}, {}, {}, {}, {})".format(player_id, name, city, gender, rating, np_sw, expiration, won, lost, matches, defaults, win_percent, singles, doubles, team_id)
+      rosters_sql_exp += " ({}, '{}', '{}', '{}', '{}', '{}', '{}', {}, {}, {}, {}, {}, {}, {}, {})".format(player_id, name, city, gender, rating, np_sw, expiration, won, lost, matches, defaults, win_percent, singles, doubles, team_id)
+
 
 rosters_sql_exp += ";"
 
