@@ -6,7 +6,16 @@ from datetime import datetime
 #get teams from league
 #get scorecards from teams
 
-league_id_list = [1891, 1894, 1895, 1897, 1856, 1857, 1858, 1859, 1860, 1809, 1810, 1811, 1813, 1814, 1815, 1816, 1818, 1819, 1820, 1821, 1822, 1823, 1824, 1825] #[1872, 1873, 1874, 1875, 1876, 1877, 1878, 1879, 1881, 1882, 1883, 1884, 1885] #NOT IN ALL FILE: [1858, 1924] 
+#season: 177 - adult 2015
+#1515, 1516, 1517, 1518, 1519, 1520, 1521, 1523, 1524, 1525, 1526, 1527, 1528, 1529 
+
+#season: 204 - adult 2017 
+#1939, 1940, 1941, 1942, 1943, 1944, 1945, 1947, 1948, 1949, 1950, 1951, 1952, 1953, 1954, 1955, 1956
+
+#haven't done
+#[1891, 1894, 1895, 1897, 1856, 1857, 1858, 1859, 1860]
+
+league_id_list = [1809, 1810, 1811, 1813, 1814, 1815, 1816, 1818, 1819, 1820, 1821, 1822, 1823, 1824, 1825] #[1872, 1873, 1874, 1875, 1876, 1877, 1878, 1879, 1881, 1882, 1883, 1884, 1885] #NOT IN ALL FILE: [1858, 1924] 
 
 #TEAMS FROM LEAGUES PAGE####################################
 league_url = 'https://www.ustanorcal.com/listteams.asp?leagueid='
@@ -271,6 +280,8 @@ pattern = re.compile(r'playermatches.asp\?id=')
 
 for scorecard_id in scorecard_ids:
   print(scorecard_id)
+  if(scorecard_id == 447259 or scorecard_id == 447267):
+    continue
 
   curr_url = url + str(scorecard_id)
   data = requests.get(curr_url)
@@ -278,6 +289,10 @@ for scorecard_id in scorecard_ids:
 
   singles_table = None
   doubles_table = None
+  rules_violation = False
+  if soup.find(text=re.compile(r'Rules Violation')):
+    rules_violation = True
+    continue
 
   #selects all tables from the page
   tables = soup.select("table")
@@ -304,11 +319,11 @@ for scorecard_id in scorecard_ids:
         v_1_player_id = 'null'
         v_1_player_name = ''
       elif tds[5].text == "DF":
-        if winner == "Home":
+        if winner == "Home" or winner=="Home*":
           h_1_player_name = player_as[0].text.rstrip()
           player_1_href = player_as[0]['href']
           h_1_player_id = re.match('.*?([0-9]+)$', player_1_href).group(1)
-        elif winner == "Visitor":
+        elif winner == "Visitor" or winner=="Visitor*":
           v_1_player_name = player_as[0].text.rstrip()
           player_2_href = player_as[0]['href']
           v_1_player_id = re.match('.*?([0-9]+)$', player_2_href).group(1)
@@ -363,7 +378,7 @@ for scorecard_id in scorecard_ids:
 
 
       elif tds[5].text == "DF":
-        if winner == "Home":
+        if winner == "Home" or winner=="Home*":
           h_1_player_name = player_as[0].text.rstrip()
           h_2_player_name = player_as[1].text.rstrip()
 
@@ -371,7 +386,7 @@ for scorecard_id in scorecard_ids:
           h_1_player_id = re.match('.*?([0-9]+)$', player_1_href).group(1)
           player_2_href = player_as[1]['href']
           h_2_player_id = re.match('.*?([0-9]+)$', player_2_href).group(1)
-        elif winner == "Visitor":
+        elif winner == "Visitor" or winner=="Visitor*":
           v_1_player_name = player_as[0].text.rstrip()
           v_2_player_name = player_as[1].text.rstrip()
 
