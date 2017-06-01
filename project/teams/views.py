@@ -25,12 +25,46 @@ def show(id):
 @teams_blueprint.route('/<int:id>/scorecards')
 def scorecards(id):
   curr_team = Team.query.get(id)
+  #n+1 query FIX LATER!!!
   scorecards_h = curr_team.h_scorecards.all()
   scorecards_v = curr_team.v_scorecards.all()
   scorecards = scorecards_h + scorecards_v
   #sort by date
   scorecards.sort(key=lambda x: x.date, reverse=False)  
   return render_template('teams/scorecards.html', scorecards=scorecards, curr_team = curr_team)
+
+@teams_blueprint.route('/<int:id>/matches')
+def matches(id):
+  curr_team = Team.query.get(id)
+  #n+1 query FIX LATER!!!
+  scorecards_h = curr_team.h_scorecards.all()
+  scorecards_v = curr_team.v_scorecards.all()
+  scorecards = scorecards_h + scorecards_v
+  scorecards.sort(key=lambda x: x.date, reverse=False)  
+
+  matches = []
+  # for scorecard in scorecards:
+  #   if scorecard.home_team_id == curr_team.id:
+  #     are_home = True
+  #   else:
+  #     are_home = False
+  #   curr_matches = scorecard.matches.all()
+  #   for curr_match in curr_matches:
+  #     curr_match.are_home = are_home
+  #   matches.append(curr_matches.all())
+  # from IPython import embed; embed()
+
+  matches = []
+  for scorecard in scorecards:
+    matches += scorecard.matches.all()
+
+  for match in matches:
+    if match.scorecard.team_h.id == id:
+      match.are_home = True
+    else:
+      match.are_home = False
+
+  return render_template('teams/matches.html', matches=matches, curr_team=curr_team)
 
 
 @teams_blueprint.route('/<int:id>/json')

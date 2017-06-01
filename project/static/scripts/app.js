@@ -85,8 +85,8 @@ function newTeamId() { //(chartId){
 // })
 
 //draw different charts based on which button is clicked
-d3.selectAll('.btnCustom').on('click', function(){
-  d3.selectAll('.btnCustom')
+d3.selectAll('.btnSvg').on('click', function(){
+  d3.selectAll('.btnSvg')
     .classed('active', false);
   d3.event.preventDefault();
   d3.select(this)

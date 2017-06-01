@@ -30,4 +30,4 @@ class Roster(db.Model):
     self.rating = rating
 
   def __repr__(self):
-    return "#{}: name: {} - rating: {}".format(self.id, self.name, self.rating)
+    return "player_id: {} - name: {} - rating: {}".format(self.player_id, self.name, self.rating)

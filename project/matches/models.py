@@ -19,5 +19,9 @@ class Match(db.Model):
   winning_score = db.Column(db.Text)
   winner = db.Column(db.Text)
 
+  #I use this in displaying the matches for a team to highlight if
+  #the current team is home or visitor (which is based on scoredcard table data)
+  are_home = None
+
   def __repr__(self):
     return "#{}: scorecard_id: {} - match_type: {} - line: {}".format(self.id, self.scorecard_id, self.match_type, self.line)
