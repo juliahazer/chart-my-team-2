@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>
+  <a href="{{url_for('teams.show', id=scorecard.team_h.id)}}">
+    {{scorecard.team_h.name}}
+  </a>(Home) vs. 
+  <a href="{{url_for('teams.show', id=scorecard.team_v.id)}}">
+    {{scorecard.team_v.name}} 
+  </a>(Visitor)
+</h1>
+<h2>{{scorecard.date.strftime('%m-%d-%y')}}</h2>
+
+<div class='container-fluid'>
+  <table class="table">
+    <thead>
+      <th class="text-center">#</th>
+      <th class='text-center'>Match Type</th>
+      <th class="text-center">Line #</th>
+      <th class="text-center">Home Player 1</th>
+      <th class="text-center">Home Player 2</th>
+      <th class="text-center">Visitor Player 1</th>
+      <th class="text-center">Visitor Player 1 2</th>
+      <th class="text-center">Winner?</th>
+      <th class="text-center">Winner's Score</th>
+      <th class="text-center">Link</th>
+    </thead>
+    <tbody>
+      {% for match in matches %}
+        <tr>
+          <td>{{loop.index}}</td>
+          <td>{{match.match_type}}</td>
+          <td>{{match.line}}</td>
+          <td>{{match.h_1_player_name}}</td>
+          <td>
+            {% if match.match_type == 'doubles' %}
+                {{match.h_2_player_name}}
+            {% endif %}
+          </td>
+          <td>
+              {{match.v_1_player_name}}
+          </td>
+          <td>
+            {% if match.match_type == 'doubles' %}
+              {{match.v_2_player_name}}
+            {% endif %}         
+          </td>
+          <td>
+            {% if match.winner == "Home" %}
+              Home: {{scorecard.team_h.name}}
+            {% else %}
+              Visitor: {{scorecard.team_v.name}}
+            {% endif %}
+          </td>
+          <td>
+            {{match.winning_score}}
+          </td>
+          <td>
+            <a href="//www.ustanorcal.com/scorecard.asp?id={{scorecard.id}}" target="_blank">
+              Link
+            </a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  <table>
+</div>
+
+{% endblock %}

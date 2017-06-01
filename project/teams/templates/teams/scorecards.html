@@ -8,25 +8,29 @@
   <table class="table">
     <thead>
       <th class="text-center">#</th>
-      <th class='text-center'>Home Team</th>
-      <th class="text-center">Visitor Team</th>
       <th class="text-center">Date</th>
+      <th class="text-center">Opponent</th>
+      <th class="text-center">See Matches</th>
       <th class="text-center">Link to USTA</th>
     </thead>
     <tbody>
       {% for scorecard in scorecards %}
         <tr>
           <td>{{loop.index}}</td>
-          <td>
-            <a href="{{ url_for('teams.show', id=scorecard.home_team_id) }}"> {{scorecard.team_h.name}}
-            </a>
-          </td>
-          <td>
-            <a href="{{ url_for('teams.show', id=scorecard.visitor_team_id) }}"> 
-              {{scorecard.team_v.name}}
-            </a>
-          </td>
           <td>{{scorecard.date.strftime('%m-%d-%y')}}</td>
+          <td>
+            {% if scorecard.team_v.id == curr_team.id %}
+              <a href="{{ url_for('teams.show', id=scorecard.home_team_id) }}"> {{scorecard.team_h.name}}
+              </a>
+            {% else %}
+              <a href="{{ url_for('teams.show', id=scorecard.visitor_team_id) }}"> 
+                {{scorecard.team_v.name}}
+              </a>
+            {% endif %}
+          </td>
+          <td>
+            <a href="{{ url_for('scorecards.matches', id=scorecard.id)}}">Matches</a>
+          </td>
           <td><a href="https://www.ustanorcal.com/scorecard.asp?id={{scorecard.id}}" target="_blank">link</a></td>
         </tr>
       {% endfor %}

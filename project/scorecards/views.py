@@ -15,3 +15,10 @@ def index(id):
   # for scorecard in scorecards:
   #   from IPython import embed; embed()
   return render_template('scorecards/index.html', scorecards=scorecards)
+
+
+@scorecards_blueprint.route('/<int:id>/matches')
+def matches(id):
+  scorecard = Scorecard.query.get(id)
+  matches = scorecard.matches.all()
+  return render_template('scorecards/matches.html', matches=matches, scorecard=scorecard)
