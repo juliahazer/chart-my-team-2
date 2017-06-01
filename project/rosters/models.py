@@ -1,10 +1,13 @@
 from project import db
+from sqlalchemy import PrimaryKeyConstraint
 
 class Roster(db.Model):
 
   __tablename__ = 'rosters'
 
-  id = db.Column(db.Integer, primary_key=True)
+  __table_args__ = (
+        PrimaryKeyConstraint('team_id', 'player_id'),
+        {},)
   player_id = db.Column(db.Integer)
   name = db.Column(db.Text)
   city = db.Column(db.Text)
