@@ -22,6 +22,17 @@ def show(id):
     has_rosters = False
   return render_template('teams/show.html', curr_team=curr_team, has_rosters=has_rosters)
 
+@teams_blueprint.route('/<int:id>/scorecards')
+def scorecards(id):
+  curr_team = Team.query.get(id)
+  scorecards_h = curr_team.h_scorecards.all()
+  scorecards_v = curr_team.v_scorecards.all()
+  scorecards = scorecards_h + scorecards_v
+  #sort by date
+  scorecards.sort(key=lambda x: x.date, reverse=False)  
+  return render_template('teams/scorecards.html', scorecards=scorecards, curr_team = curr_team)
+
+
 @teams_blueprint.route('/<int:id>/json')
 def get_team_json(id):
   curr_team = Team.query.get(id)

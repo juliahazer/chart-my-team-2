@@ -27,7 +27,7 @@ from project.matches.models import Match
 app.register_blueprint(teams_blueprint, url_prefix='/teams')
 app.register_blueprint(seasons_blueprint, url_prefix='/seasons')
 app.register_blueprint(leagues_blueprint, url_prefix='/leagues')
-app.register_blueprint(scorecards_blueprint, url_prefix='/teams/<int:id>/scorecards')
+app.register_blueprint(scorecards_blueprint, url_prefix='/scorecards') #url_prefix='/teams/<int:id>/scorecards')
 app.register_blueprint(matches_blueprint, url_prefix='/matches')
 app.register_blueprint(rosters_blueprint, url_prefix='/rosters')
 
