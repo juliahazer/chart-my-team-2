@@ -43,18 +43,6 @@ def matches(id):
   scorecards.sort(key=lambda x: x.date, reverse=False)  
 
   matches = []
-  # for scorecard in scorecards:
-  #   if scorecard.home_team_id == curr_team.id:
-  #     are_home = True
-  #   else:
-  #     are_home = False
-  #   curr_matches = scorecard.matches.all()
-  #   for curr_match in curr_matches:
-  #     curr_match.are_home = are_home
-  #   matches.append(curr_matches.all())
-  # from IPython import embed; embed()
-
-  matches = []
   for scorecard in scorecards:
     matches += scorecard.matches.all()
 
@@ -66,9 +54,73 @@ def matches(id):
 
   return render_template('teams/matches.html', matches=matches, curr_team=curr_team)
 
+@teams_blueprint.route('/<int:id>/matches_json')
+def matches_json(id):
+  curr_team = Team.query.get(id)
+  #n+1 query FIX LATER!!!
+  scorecards_h = curr_team.h_scorecards.all()
+  scorecards_v = curr_team.v_scorecards.all()
+  scorecards = scorecards_h + scorecards_v
+  scorecards.sort(key=lambda x: x.date, reverse=False) 
+
+  matches = []
+  for scorecard in scorecards:
+    matches += scorecard.matches.all()
+
+  for match in matches:
+    if match.scorecard.team_h.id == id:
+      match.are_home = True
+    else:
+      match.are_home = False
+
+  json_matches_list = []
+
+  for m in matches:
+    obj = {
+      'scorecard_id': match.scorecard.id,
+      'type': m.match_type,
+      'line': m.line,
+      'winning_score': match.winning_score
+    }
+    obj['date'] = match.scorecard.date.strftime('%m-%d-%y')
+    if match.are_home:
+      obj['location'] = 'Home'
+      obj['opponent'] = match.scorecard.team_v.name
+      obj['opponent_id'] = match.scorecard.team_v.id
+      obj['team_player_1'] = match.h_1_player_name
+      obj['team_player_1_id'] = match.h_1_player_id
+      obj['opp_player_1'] = match.v_1_player_name
+      obj['opp_player_1_id'] = match.v_1_player_id
+      if match.match_type == 'doubles':
+        obj['team_player_2'] = match.h_2_player_name
+        obj['team_player_2_id'] = match.h_2_player_id
+        obj['opp_player_2'] = match.v_2_player_name
+        obj['opp_player_2_id'] = match.v_2_player_id
+    else:
+      obj['location'] = 'Away'
+      obj['opponent'] = match.scorecard.team_h.name
+      obj['opponent_id'] = match.scorecard.team_h.id
+      obj['team_player_1'] = match.v_1_player_name
+      obj['team_player_1_id'] = match.v_1_player_id
+      obj['opp_player_1'] = match.h_1_player_name
+      obj['opp_player_1_id'] = match.h_1_player_id
+      if match.match_type == 'doubles':
+        obj['team_player_2'] = match.v_2_player_name
+        obj['team_player_2_id'] = match.v_2_player_id
+        obj['opp_player_2'] = match.h_2_player_name
+        obj['opp_player_2_id'] = match.h_2_player_id
+    if match.are_home and match.winner == 'Home':
+      obj['winner'] = 'Team'
+    else:
+      obj['winner'] = 'Opponent'
+
+    json_matches_list.append(obj)
+
+  return jsonify(json_matches_list)
+
 
 @teams_blueprint.route('/<int:id>/json')
-def get_team_json(id):
+def team_json(id):
   curr_team = Team.query.get(id)
   rosters_list = []
   for r in curr_team.rosters.all():
