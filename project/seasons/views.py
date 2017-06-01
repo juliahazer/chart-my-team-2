@@ -12,7 +12,7 @@ def json():
   seasons_list = []
   #THIS IS WHERE SET THE FILTER FOR SEASONS!
   #for s in Season.query.filter(Season.year>=2015).order_by(Season.year.desc(), Season.name.asc()).all():
-  for s in Season.query.filter(Season.id==196).order_by(Season.year.desc(), Season.name.asc()).all():
+  for s in Season.query.filter(Season.id==194).order_by(Season.year.desc(), Season.name.asc()).all():
     seasons_list.append({
       'id': s.id,
       'year': s.year,
