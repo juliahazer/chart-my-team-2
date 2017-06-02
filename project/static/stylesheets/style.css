@@ -35,7 +35,7 @@ body {
 }
 
 h1 {
-  color: #659667;
+  color: #EF7D5A;
   font-weight: 700;
   font-size: 33px;
   letter-spacing: 0.1em;
@@ -52,6 +52,13 @@ h3 {
   color: #564036;
   font-weight: 400;
   font-size: 20px;
+  letter-spacing: 0.1em;
+}
+
+h4 {
+  color: #EF7D5A;
+  font-size: 20px;
+  font-weight: 500;
   letter-spacing: 0.1em;
 }
 
@@ -81,6 +88,14 @@ footer {
   font-size: 12px;
 }
 
+#welcomeDiv {
+  margin-bottom: 30px;
+}
+
+#welcomeDiv2 {
+  margin-bottom: 10px;
+}
+
 #aboutDiv {
   margin-top: 10px;
   margin-bottom: 20px;
@@ -89,6 +104,15 @@ footer {
   padding: 10px 30px 20px 30px;
   font-size: 15px;
   line-height: 25px;
+}
+
+.startedMsg {
+  padding-bottom: 12px;
+}
+
+.bottomMsg, 
+.h4Msg {
+  padding-top: 15px;
 }
 
 /************* NAV BAR *************/
@@ -121,9 +145,10 @@ footer {
 
 /*Julia Hazer brand*/
 .navbar-custom .navbar-brand {
-  font-family: 'Work Sans', sans-serif;
+  font-family: 'Tahoma', serif;
   font-size: 2em;
-  color: #F4F5F3;
+  letter-spacing: 4px;
+  color: #EF7D5A;
   position: relative;
   top: -20px;
 }
@@ -132,7 +157,7 @@ footer {
 .navbar-custom .navbar-brand:focus,
 .navbar-custom .navbar-brand:active,
 .navbar-custom .navbar-brand.active {
-  color: #659667;
+  color: #EF7D5A;
 }
 
 /*Nav bar links*/
@@ -152,7 +177,7 @@ footer {
 }
 
 .navbar-custom .navbar-nav li a:hover {
-  color: #A8927B;
+  color: #EF7D5A;
   outline: none;
 }
 
@@ -230,7 +255,8 @@ label {
 /************** SVG ******************/
 
 .svgRacket {
-  fill: #659667;
+  fill: #EF7D5A;
+  padding: 3px;
 }
 
 .svgChart {
@@ -302,11 +328,20 @@ div.tooltip {
   }
 }
 
+
 @media (min-width: 768px){
   #brandSpan {
     display: inline-block;
     position:relative;
-    top: -10px;
+    top: -15px;
+  }
+}
+
+@media (max-width: 768px){
+  #brandSpan {
+    display: inline-block;
+    position:relative;
+    top: -20px;
   }
 }
 
@@ -323,9 +358,9 @@ div.tooltip {
     font-size: 25px;
   }
 
-  .svgRacket {
+/*  .svgRacket {
     display: none;
-  }
+  }*/
 }
 
 

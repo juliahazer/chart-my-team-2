@@ -6,8 +6,64 @@ class="active"
 
 {% block content %}
 
+{% if not has_rosters %}
+
+<h1>Sorry, the data for this team is not yet available</h1>
+<h1>{{curr_team.name}}</h1>
+
+{% endif %}
+
+{% if has_rosters %}
+
+<h1>TEAM: {{curr_team.name}}</h1>
+<h3>League: {{curr_team.league.year}} {{curr_team.league.name}}</h3>
+
+<!--buttons-->
+<div class='container-fluid'>
+  <h4 class="h4Msg">Click a button to change the graph...</h4>
+  <p class="selectBtns">
+    <a class="active btn btn-lg btnCustom btnSvg" href="" 
+      data-val="matches">
+      # Won / Lost
+    </a>
+    <a class="btn btn-lg btnCustom btnSvg" href="" 
+      data-val="won">
+      # Won
+    </a>
+    <a class="btn btn-lg btnCustom btnSvg" href="" 
+      data-val="lost">
+      # Lost
+    </a>
+    <a class="btn btn-lg btnCustom btnSvg" href="" 
+      data-val="win_percent">
+      Win %
+    </a>
+    <a class="btn btn-lg btnCustom btnSvg {% if 'Combo' in curr_team.league.name or 'Mixed' in curr_team.league.name %} hidden{% endif %}" href="" 
+      data-val="singles_doubles">
+      # Singles / Doubles
+    </a>
+    <a class="btn btn-lg btnCustom btnSvg {% if 'Combo' in curr_team.league.name or 'Mixed' in curr_team.league.name %} hidden{% endif %}" href="" 
+      data-val="singles">
+      # Singles
+    </a>
+    <a class="btn btn-lg btnCustom btnSvg" href="" 
+      data-val="doubles">
+      # Doubles
+    </a>
+  </p>
+</div>
+
+{% endif %}
+
+<!--SVG Chart-->
+<div>
+  <svg id="svgTag" class="svgChart {% if not has_rosters %}hidden{% endif %}" data-season-id="{{curr_team.season_id}}" data-league-id="{{curr_team.league_id}}" data-team-id="{{curr_team.id}}" preserveAspectRatio="xMinYMin meet" 
+  viewBox="0 0 900 500"></svg>
+</div>
+
 <!--form-->
 <div class='container-fluid'>
+  <h4 class="startedMsg bottomMsg">See a different team?</h4>
   <div class="form-group row" id="seasonSelectDiv">
     <div class="col-lg-3 col-lg-offset-2
       col-md-2 col-md-offset-2
@@ -65,72 +121,6 @@ class="active"
       </select>
     </div>
   </div>
-</div>
-
-{% if not has_rosters %}
-
-<h1>Sorry, the data for this team is not yet available</h1>
-<h1>{{curr_team.name}}</h1>
-
-{% endif %}
-
-{% if has_rosters %}
-
-<h1>{{curr_team.name}}</h1>
-<h3>{{curr_team.league.year}} {{curr_team.league.name}}</h3>
-
-<!--buttons-->
-<div class='container-fluid'>
-  <p>
-    <a class="btn btn-lg btnCustom" href="{{url_for('teams.scorecards', id=curr_team.id)}}">
-      Go to Scorecard List
-    </a>
-    <a class="btn btn-lg btnCustom" href="{{url_for('teams.matches', id=curr_team.id)}}">
-      Go to Matches
-    </a>
-  </p>
-</div>
-
-<!--buttons-->
-<div class='container-fluid'>
-  <p class="selectBtns">
-    <a class="active btn btn-lg btnCustom btnSvg" href="" 
-      data-val="matches">
-      # Won / Lost
-    </a>
-    <a class="btn btn-lg btnCustom btnSvg" href="" 
-      data-val="won">
-      # Won
-    </a>
-    <a class="btn btn-lg btnCustom btnSvg" href="" 
-      data-val="lost">
-      # Lost
-    </a>
-    <a class="btn btn-lg btnCustom btnSvg" href="" 
-      data-val="win_percent">
-      Win %
-    </a>
-    <a class="btn btn-lg btnCustom btnSvg {% if 'Combo' in curr_team.league.name or 'Mixed' in curr_team.league.name %} hidden{% endif %}" href="" 
-      data-val="singles_doubles">
-      # Singles / Doubles
-    </a>
-    <a class="btn btn-lg btnCustom btnSvg {% if 'Combo' in curr_team.league.name or 'Mixed' in curr_team.league.name %} hidden{% endif %}" href="" 
-      data-val="singles">
-      # Singles
-    </a>
-    <a class="btn btn-lg btnCustom btnSvg" href="" 
-      data-val="doubles">
-      # Doubles
-    </a>
-  </p>
-</div>
-
-{% endif %}
-
-<!--SVG Chart-->
-<div>
-  <svg id="svgTag" class="svgChart {% if not has_rosters %}hidden{% endif %}" data-season-id="{{curr_team.season_id}}" data-league-id="{{curr_team.league_id}}" data-team-id="{{curr_team.id}}" preserveAspectRatio="xMinYMin meet" 
-  viewBox="0 0 900 500"></svg>
 </div>
 
 {% endblock %}
