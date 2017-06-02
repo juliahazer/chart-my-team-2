@@ -76,6 +76,9 @@ class="active"
 
 {% if has_rosters %}
 
+<h1>{{curr_team.name}}</h1>
+<h3>{{curr_team.league.year}} {{curr_team.league.name}}</h3>
+
 <!--buttons-->
 <div class='container-fluid'>
   <p>
@@ -121,9 +124,6 @@ class="active"
     </a>
   </p>
 </div>
-
-
-<h1>{{curr_team.league.year}} {{curr_team.league.name}}</h1>
 
 {% endif %}
 

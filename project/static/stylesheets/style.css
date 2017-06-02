@@ -55,6 +55,11 @@ h3 {
   letter-spacing: 0.1em;
 }
 
+.siteTitle {
+  color: #659667;
+  font-weight: bolder;
+}
+
 a {
   color: #BC6247;
 }
@@ -74,6 +79,16 @@ footer {
   padding-top: 40px;
   color: #564036;
   font-size: 12px;
+}
+
+#aboutDiv {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  background-color: #F4F5F3;
+  border-radius: 30px;
+  padding: 10px 30px 20px 30px;
+  font-size: 15px;
+  line-height: 25px;
 }
 
 /************* NAV BAR *************/
