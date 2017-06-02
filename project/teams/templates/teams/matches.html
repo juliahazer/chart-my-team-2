@@ -2,29 +2,9 @@
 
 {% block table%}
 <div class='container-fluid'>
+  <h1>All Matches for:</h1>
   <h1>{{curr_team.name}}</h1>
-  <h1>{{curr_team.league.name}}</h1>
-</div>
-
-<!--buttons-->
-<div class='container-fluid'>
-  <p>
-    <a class="btn btn-lg btnCustom" href="">
-      Singles
-    </a>
-    <a class="btn btn-lg btnCustom" href="">
-      Doubles
-    </a>
-    <a class="btn btn-lg btnCustom" href="">
-      Line 1
-    </a>
-    <a class="btn btn-lg btnCustom" href="">
-      Line 2
-    </a>
-    <a class="btn btn-lg btnCustom" href="">
-      Line 3
-    </a>
-  </p>
+  <h3>League: {{curr_team.league.year}} {{curr_team.league.name}}</h3>
 </div>
 
 <div class='container-fluid'>
@@ -33,23 +13,30 @@
       <th class="text-center">#</th>
       <th class="text-center">          
         <select class="form-control" id="selectDate">
-          <option value="asc">Date (Asc)</option>
+          <option value="asc" selected>Date (Asc)</option>
           <option value="desc">Date (Desc)</option>
         </select>
       </th>
       <th class="text-center">Opponent Name</th>
       <th class='text-center'> 
         <select class="form-control" id="selectType">
-          <option value="all">Match Type (All)</option>
+          <option value="all" selected>Match Type (All)</option>
           <option value="singles">Singles</option>
           <option value="doubles">Doubles</option>
-        </select></th>
+        </select>
+      </th>
       <th class="text-center">Line #</th>
       <th class="text-center">Team Player 1</th>
       <th class="text-center">Team Player 2</th>
       <th class="text-center">Opponent 1</th>
       <th class="text-center">Opponent 2</th>
-      <th class="text-center">Won?</th>
+      <th class="text-center">
+        <select class="form-control" id="selectWinner">
+          <option value="all" selected>Who Won?</option>
+          <option value="Opponent">Won: Opponent</option>
+          <option value="Team">Won: Team</option>
+        </select>
+      </th>
       <th class="text-center">Winner's Score</th>
       <th class="text-center">Location</th>
       <th class="text-center">USTA Link</th>

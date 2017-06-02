@@ -3,16 +3,18 @@ $(function(){
   var $tbody = $('#tableBody');
   var $selectDate = $('#selectDate');
   var $selectType = $('#selectType');
+  var $selectWinner = $('#selectWinner');
+  var $selectLocation = $('#selectLocation');
 
   var baseUrl = window.location.protocol + "//" + window.location.host + "/";
   var currUrl = window.location.href;
 
   var matchArr = [];
+  var currArr = [];
 
   var sortField = null;
   var sortType = null;
   var sortKind = null;
-
 
   $.ajax({
     method: "GET",
@@ -26,7 +28,7 @@ $(function(){
 
   function writeTable(sortField, sortValue, sortKind){
     $tbody.empty()
-    var currArr = matchArr;
+    currArr = matchArr;
     if (sortKind === 'sort'){
       if (sortValue === 'asc'){
         if (sortField === 'date'){
@@ -94,6 +96,16 @@ $(function(){
   $selectType.on('change', function(){
     var val = $(this).val();
     writeTable('type', val, 'filter');
+  });
+
+  $selectWinner.on('change', function(){
+    var val = $(this).val();
+    writeTable('winner', val, 'filter');
+  });
+
+  $selectLocation.on('change', function(){
+    var val = $(this).val();
+    writeTable('location', val, 'filter');
   });
 
 })
