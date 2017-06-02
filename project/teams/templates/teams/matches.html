@@ -6,25 +6,23 @@
 
 {% block table%}
 <div class='container-fluid'>
-  <h1>All Matches for:</h1>
-  <h1>{{curr_team.name}}</h1>
+  <h2>{{curr_team.name}}</h2>
   <h3>League: {{curr_team.league.year}} {{curr_team.league.name}}</h3>
 </div>
 
-<div class='container-fluid'>
+<div class='container'>
   <table class="table table-bordered" id="tableMatches">
     <thead>
-<!--       <th class="text-center">#</th> -->
-      <th class="text-center">Date</th>
-      <th class="text-center">Opponent Name</th>
-      <th class='text-center'>Match Type</th>
-      <th class="text-center">Line #</th>
-      <th class="text-center">Team Player/s</th>
-      <th class="text-center">Opponent/s</th>
-      <th class="text-center">Won?</th>
-      <th class="text-center">Winner's Score</th>
-      <th class="text-center">Location</th>
-      <th class="text-center">USTA Link</th>
+      <th class="text-left">Date</th>
+      <th class="text-left">Opponent Name</th>
+      <th class='text-left'>Match Type</th>
+      <th class="text-left">Line #</th>
+      <th class="text-left">Team Player/s</th>
+      <th class="text-left">Opponent/s</th>
+      <th class="text-left">Won?</th>
+      <th class="text-left">Winner's Score</th>
+      <th class="text-left">Location</th>
+      <th class="text-left">USTA Link</th>
     </thead>
     <tbody id="tableBody">
 

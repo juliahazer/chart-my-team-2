@@ -3,9 +3,9 @@
 {% block content %}
 
 <div class='container-fluid'>
-  <h1>{{curr_team.name}}</h1>
-  <h1>{{curr_team.league.name}}</h1>
-  <table class="table">
+  <h2>{{curr_team.name}}</h2>
+  <h3>League: {{curr_team.league.year}} {{curr_team.league.name}}</h3>
+  <table class="table" id="tableMatches">
     <thead>
       <th class="text-center">#</th>
       <th class="text-center">Date</th>

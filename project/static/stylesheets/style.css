@@ -34,6 +34,20 @@ h1 {
   letter-spacing: 0.1em;
 }
 
+h2 {
+  color: #564036
+  font-weight: 700;
+  font-size: 28px;
+  letter-spacing: 0.1em;
+}
+
+h3 {
+  color: #564036;
+  font-weight: 400;
+  font-size: 20px;
+  letter-spacing: 0.1em;
+}
+
 .hidden {
   display: none;
 }
@@ -49,16 +63,31 @@ h1 {
   padding-bottom: 30px;
 }
 
+#tableMatches_length label,
+#tableMatches_filter label,
+#tableMatches_info,
+#tableMatches_paginate {
+ font-size: 13px;
+ color: #564036;
+}
+
 /************** BUTTONS ******************/
 
-.btnCustom {
+.btnCustom,
+.btnCustomTeam {
   margin: 3px;
   color: #F4F5F3;
   background-color: #AD8564;
-  font-size: 15px;
   transition: all 0.3s ease-in-out;
 }
 
+.btnCustom {
+  font-size: 15px;
+}
+
+.btnCustomTeam:hover,
+.btnCustomTeam:focus,
+.btnCustomTeam:active,
 .btnCustom:hover,
 .btnCustom:focus,
 .btnCustom:active,
@@ -358,15 +387,8 @@ table.dataTable td {
 table.dataTable thead th {
   background-color: #A26E56;
   color: #F4F5F3;
-}
 
-/*
-cream: #F4E0CB;
-white: #F4F5F3
-green: #659667
-orange: #EF7D5A
-brown: #564036
-light brown: #A8927B
+}
 
 /*
  * Control feature layout

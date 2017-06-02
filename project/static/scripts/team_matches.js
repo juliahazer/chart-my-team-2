@@ -49,14 +49,14 @@ $(function(){
     // }
     matchArr.map(function(el, i){
       var tbody_html = `
-        <tr data-id='${el.id}'`;
+        <tr data-id='${el.id}' class='text-left`;
       if (el.winner === 'Team'){
-        tbody_html += `class='success'`;
+        tbody_html += ` success`;
       }
       // } else {
       //   tbody_html += `class='warning'`;
       // }
-      tbody_html += `>
+      tbody_html += `'>
           <td>${el.date}</td>
           <td>
             <a href='${baseUrl}teams/${el.opponent_id}/matches'>
@@ -83,7 +83,7 @@ $(function(){
           <td>${el.winning_score}</td>
           <td>${el.location}</td>
           <td>
-            <a href="//www.ustanorcal.com/scorecard.asp?id=${el.scorecard_id}" target="_blank">
+            <a class="btn btn-primary btn-sm" role="button" href="//www.ustanorcal.com/scorecard.asp?id=${el.scorecard_id}" target="_blank">
               Link
             </a>
           </td>
