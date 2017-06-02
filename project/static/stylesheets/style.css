@@ -11,6 +11,13 @@ dark blue: #085B6F
 tooltipBrown: #A26E56;
 */
 
+* {
+  margin: 0;
+}
+html, body {
+  height: 100%;
+}
+
 body {
   font-family: 'Tahoma', serif;
   text-align: center;
@@ -48,9 +55,110 @@ h3 {
   letter-spacing: 0.1em;
 }
 
+a {
+  color: #BC6247;
+}
+
+a:hover,
+a:focus,
+a:active {
+  color: #EF7D5A;
+  text-decoration: none;
+}
+
 .hidden {
   display: none;
 }
+
+footer {
+  padding-top: 20px;
+  color: #564036;
+  font-size: 12px;
+}
+
+/************* NAV BAR *************/
+#space {
+  height: 90px; /*same height as navbar*/
+}
+
+.navbar-custom {
+  background-color: #564036; 
+  border-color: transparent;
+}
+
+.navbar-custom .navbar-header {
+  padding-top: 10px;
+}
+
+/*hamburger menu on smaller screens*/
+.navbar-custom .navbar-toggle {
+  background-color: #EF7D5A;
+  border-color: #EF7D5A;
+  text-transform: uppercase;
+  color: #F4F5F3;
+  font-size: .8px;
+}
+
+.navbar-custom .navbar-toggle:hover,
+.navbar-custom .navbar-toggle:focus {
+  background-color: #f4a288;
+}
+
+/*Julia Hazer brand*/
+.navbar-custom .navbar-brand {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 2em;
+  color: #F4F5F3;
+  position: relative;
+  top: -20px;
+}
+
+.navbar-custom .navbar-brand:hover,
+.navbar-custom .navbar-brand:focus,
+.navbar-custom .navbar-brand:active,
+.navbar-custom .navbar-brand.active {
+  color: #A8927B;
+}
+
+/*Nav bar links*/
+.navbar-custom .navbar-nav {
+  margin: 10px 5px 10px 0px;
+}
+
+.navbar-custom .navbar-nav li {
+  background-color: #564036;
+}
+
+.navbar-custom .navbar-nav li a {
+  text-transform: uppercase;
+  font-weight: 400;
+  color: #F4F5F3;
+  font-size: 19px;
+}
+
+.navbar-custom .navbar-nav li a:hover {
+  color: #A8927B;
+  outline: none;
+}
+
+.navbar-custom .navbar-nav li a:focus {
+  color: #4F9FCF;
+  outline: none;
+}
+
+/*Currently selected/active nav bar links*/
+.navbar-custom .navbar-nav > .active > a {
+  border-radius: 20px;
+  color: #F4F5F3;
+  background-color: #EF7D5A;
+}
+
+.navbar-custom .navbar-nav > .active > a:hover,
+.navbar-custom .navbar-nav > .active > a:focus {
+  color: #F4F5F3;
+  background-color: #e58f60;
+}
+
 
 /************** MATCHES TABLES ON TEAMS *********/
 
@@ -385,7 +493,7 @@ table.dataTable td {
   box-sizing: content-box; }
 
 table.dataTable thead th {
-  background-color: #A26E56;
+  background-color: #564036;
   color: #F4F5F3;
 
 }
