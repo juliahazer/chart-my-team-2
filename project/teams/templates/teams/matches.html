@@ -8,33 +8,16 @@
 </div>
 
 <div class='container-fluid'>
-  <table class="table">
+  <table class="table table-striped table-bordered" id="tableMatches">
     <thead>
-      <th class="text-center">#</th>
-      <th class="text-center">          
-        <select class="form-control" id="selectDate">
-          <option value="asc" selected>Date (Asc)</option>
-          <option value="desc">Date (Desc)</option>
-        </select>
-      </th>
+<!--       <th class="text-center">#</th> -->
+      <th class="text-center">Date</th>
       <th class="text-center">Opponent Name</th>
-      <th class='text-center'> 
-        <select class="form-control" id="selectType">
-          <option value="all" selected>Match Type (All)</option>
-          <option value="singles">Singles</option>
-          <option value="doubles">Doubles</option>
-        </select>
-      </th>
+      <th class='text-center'>Match Type</th>
       <th class="text-center">Line #</th>
       <th class="text-center">Team Player/s</th>
       <th class="text-center">Opponent/s</th>
-      <th class="text-center">
-        <select class="form-control" id="selectWinner">
-          <option value="all" selected>Who Won?</option>
-          <option value="Opponent">Won: Opponent</option>
-          <option value="Team">Won: Team</option>
-        </select>
-      </th>
+      <th class="text-center">Won?</th>
       <th class="text-center">Winner's Score</th>
       <th class="text-center">Location</th>
       <th class="text-center">USTA Link</th>
@@ -50,5 +33,6 @@
 {% endblock %}
 
 {% block scripts %}
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
 <script src="{{ url_for('static', filename='scripts/team_matches.js') }}"></script>
 {% endblock %}

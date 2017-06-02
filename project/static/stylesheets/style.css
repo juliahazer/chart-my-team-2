@@ -11,7 +11,6 @@ dark blue: #085B6F
 tooltipBrown: #A26E56;
 */
 
-
 body {
   font-family: 'Tahoma', serif;
   text-align: center;
@@ -35,14 +34,15 @@ h1 {
   letter-spacing: 0.1em;
 }
 
-.svgRacket {
-  fill: #659667;
+.hidden {
+  display: none;
 }
 
-.svgChart {
-  background-color: #F4F5F3;
-  border-radius: 20px;
+#tableMatches_wrapper {
+  padding-bottom: 30px;
 }
+
+/************** BUTTONS ******************/
 
 .btnCustom {
   margin: 3px;
@@ -67,8 +67,15 @@ label {
   padding-top: 6px;
 }
 
-.hidden {
-  display: none;
+/************** SVG ******************/
+
+.svgRacket {
+  fill: #659667;
+}
+
+.svgChart {
+  background-color: #F4F5F3;
+  border-radius: 20px;
 }
 
 .teamName,

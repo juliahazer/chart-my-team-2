@@ -115,10 +115,16 @@ def matches_json(id):
         obj['team_player_2_id'] = ''
         obj['opp_player_2'] = ''
         obj['opp_player_2_id'] = ''
-    if m.are_home and m.winner == 'Home':
-      obj['winner'] = 'Team'
+    if m.are_home:
+      if m.winner == 'Home':
+        obj['winner'] = 'Team'
+      else:
+        obj['winner'] = 'Opponent'
     else:
-      obj['winner'] = 'Opponent'
+      if m.winner == 'Home':
+        obj['winner'] = 'Opponent'
+      else:
+        obj['winner'] = 'Team'
 
     json_matches_list.append(obj)
 

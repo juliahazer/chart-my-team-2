@@ -1,20 +1,12 @@
 $(function(){
 
+  var $tableMatches = $('#tableMatches')
   var $tbody = $('#tableBody');
-  var $selectDate = $('#selectDate');
-  var $selectType = $('#selectType');
-  var $selectWinner = $('#selectWinner');
-  var $selectLocation = $('#selectLocation');
 
   var baseUrl = window.location.protocol + "//" + window.location.host + "/";
   var currUrl = window.location.href;
 
   var matchArr = [];
-  var currArr = [];
-
-  var sortField = null;
-  var sortType = null;
-  var sortKind = null;
 
   $.ajax({
     method: "GET",
@@ -23,44 +15,47 @@ $(function(){
   }).then(function(data){
     matchArr = data;
     console.log(matchArr)
-    writeTable(sortField, sortType, sortKind);
+    writeTable();
   });
 
-  function writeTable(sortField, sortValue, sortKind){
-    
+  function writeTable(){
     $tbody.empty()
-    currArr = matchArr;
-    if (sortKind === 'sort'){
-      if (sortValue === 'asc'){
-        if (sortField === 'date'){
-          currArr.sort(function(a,b){
-            return new Date(a.date) - new Date(b.date);
-          })
-        } else {
-          currArr.sort(function(a,b){
-            return a[sortField] - b[sortField]
-          });
-        }
-      } else {
-        if (sortField === 'date'){
-          currArr.sort(function(a,b){
-            return new Date(b.date) - new Date(a.date);
-          })
-        } else {
-          currArr.sort(function(a,b){
-            return b[sortField] - a[sortField]
-          });
-        }
-      }
-    } else if (sortKind === 'filter' && sortValue !== 'all') { //filter
-      currArr = currArr.filter(function(el){
-        return el[sortField] === sortValue;
-      })
-    }
-    currArr.map(function(el, i){
+    // if (sortKind === 'sort'){
+    //   if (sortValue === 'asc'){
+    //     if (sortField === 'date'){
+    //       currArr.sort(function(a,b){
+    //         return new Date(a.date) - new Date(b.date);
+    //       })
+    //     } else {
+    //       currArr.sort(function(a,b){
+    //         return a[sortField] - b[sortField]
+    //       });
+    //     }
+    //   } else {
+    //     if (sortField === 'date'){
+    //       currArr.sort(function(a,b){
+    //         return new Date(b.date) - new Date(a.date);
+    //       })
+    //     } else {
+    //       currArr.sort(function(a,b){
+    //         return b[sortField] - a[sortField]
+    //       });
+    //     }
+    //   }
+    // } else if (sortKind === 'filter' && sortValue !== 'all') { //filter
+    //   currArr = currArr.filter(function(el){
+    //     return el[sortField] === sortValue;
+    //   })
+    // }
+    matchArr.map(function(el, i){
       var tbody_html = `
-        <tr data-id='${el.id}'>
-          <td>${i}</td>
+        <tr data-id='${el.id}'`;
+      if (el.winner === 'Team'){
+        tbody_html += `class='success'`;
+      } else {
+        tbody_html += `class='danger'`;
+      }
+      tbody_html += `>
           <td>${el.date}</td>
           <td>
             <a href='${baseUrl}teams/${el.opponent_id}/matches'>
@@ -94,38 +89,41 @@ $(function(){
         </tr>`
       $tbody.append(tbody_html);
     });
+    $tableMatches.DataTable({
+      'paging': true
+    });
   }
  
 
 
   /********************* EVENT LISTENERS ***********************/
-  $selectDate.on('change', function(){
-    var val = $(this).val();
-    //reset first all menus to 1st option
-    $('select').not(this).find('option:eq(0)').prop('selected', true);
-    writeTable('date', val, 'sort');
-  });
+  // $selectDate.on('change', function(){
+  //   var val = $(this).val();
+  //   //reset first all menus to 1st option
+  //   $('select').not(this).find('option:eq(0)').prop('selected', true);
+  //   writeTable('date', val, 'sort');
+  // });
 
-  $selectType.on('change', function(){
-    var val = $(this).val();
-    //reset first all menus to 1st option
-    $('select').not(this).find('option:eq(0)').prop('selected', true);
-    writeTable('type', val, 'filter');
-  });
+  // $selectType.on('change', function(){
+  //   var val = $(this).val();
+  //   //reset first all menus to 1st option
+  //   $('select').not(this).find('option:eq(0)').prop('selected', true);
+  //   writeTable('type', val, 'filter');
+  // });
 
-  $selectWinner.on('change', function(){
-    var val = $(this).val();
-    //reset first all menus to 1st option
-    $('select').not(this).find('option:eq(0)').prop('selected', true);
-    writeTable('winner', val, 'filter');
-  });
+  // $selectWinner.on('change', function(){
+  //   var val = $(this).val();
+  //   //reset first all menus to 1st option
+  //   $('select').not(this).find('option:eq(0)').prop('selected', true);
+  //   writeTable('winner', val, 'filter');
+  // });
 
-  $selectLocation.on('change', function(){
-    var val = $(this).val();
-    //reset first all menus to 1st option
-    $('select').not(this).find('option:eq(0)').prop('selected', true);
-    writeTable('location', val, 'filter');
-  });
+  // $selectLocation.on('change', function(){
+  //   var val = $(this).val();
+  //   //reset first all menus to 1st option
+  //   $('select').not(this).find('option:eq(0)').prop('selected', true);
+  //   writeTable('location', val, 'filter');
+  // });
 
 })
 
