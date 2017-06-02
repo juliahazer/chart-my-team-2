@@ -6,7 +6,7 @@ from datetime import datetime
 #get teams from league
 #get scorecards from teams
 
-#season: 177 - adult 2015
+#NOT YET:: season: 177 - adult 2015
 #1515, 1516, 1517, 1518, 1519, 1520, 1521, 1523, 1524, 1525, 1526, 1527, 1528, 1529 
 
 #season: 204 - adult 2017 
@@ -15,10 +15,11 @@ from datetime import datetime
 #season 192 - adult 2016
 #1809, 1810, 1811, 1813, 1814, 1815, 1816, 1818, 1819, 1820, 1821, 1822, 1823, 1824, 1825
 
-#haven't done
-#[1891, 1894, 1895, 1897, 1856, 1857, 1858, 1859, 1860]
+#season 201 - adult mixed 2016
+#1909, 1910, 1912, 1914, 1915, 1917, 1918, 1919, 1920, 1921, 1922, 1916, 1923, 1924
 
-league_id_list = [1939, 1940, 1941, 1942, 1943, 1944, 1945, 1947, 1948, 1949, 1950, 1951, 1952, 1953, 1954, 1955, 1956]
+#
+league_id_list = []
 
 #TEAMS FROM LEAGUES PAGE####################################
 league_url = 'https://www.ustanorcal.com/listteams.asp?leagueid='

@@ -52,9 +52,10 @@ $(function(){
         <tr data-id='${el.id}'`;
       if (el.winner === 'Team'){
         tbody_html += `class='success'`;
-      } else {
-        tbody_html += `class='danger'`;
       }
+      // } else {
+      //   tbody_html += `class='warning'`;
+      // }
       tbody_html += `>
           <td>${el.date}</td>
           <td>
@@ -90,7 +91,11 @@ $(function(){
       $tbody.append(tbody_html);
     });
     $tableMatches.DataTable({
-      'paging': true
+      'paging': true,
+      'scrollX': true,
+      "columnDefs": [
+        { "orderable": false, "targets": 9 }
+      ]
     });
   }
  
