@@ -27,6 +27,7 @@ $(function(){
   });
 
   function writeTable(sortField, sortValue, sortKind){
+    
     $tbody.empty()
     currArr = matchArr;
     if (sortKind === 'sort'){
@@ -57,7 +58,7 @@ $(function(){
       })
     }
     currArr.map(function(el, i){
-      $tbody.append(`
+      var tbody_html = `
         <tr data-id='${el.id}'>
           <td>${i}</td>
           <td>${el.date}</td>
@@ -68,10 +69,20 @@ $(function(){
           </td>
           <td>${el.type}</td>
           <td>${el.line}</td>
-          <td>${el.team_player_1}</td>
-          <td>${el.team_player_2}</td>
-          <td>${el.opp_player_1}</td>
-          <td>${el.opp_player_2}</td>
+          <td>${el.team_player_1}`;
+
+      if (el.type == 'doubles'){
+        tbody_html += ` /<br>${el.team_player_2}`;
+      }
+
+      tbody_html +=`</td>
+          <td>${el.opp_player_1}`;
+
+      if (el.type == 'doubles'){
+        tbody_html += ` /<br>${el.opp_player_2}`;
+      }
+          
+      tbody_html +=`</td>
           <td>${el.winner}</td>
           <td>${el.winning_score}</td>
           <td>${el.location}</td>
@@ -81,7 +92,7 @@ $(function(){
             </a>
           </td>
         </tr>`
-      );
+      $tbody.append(tbody_html);
     });
   }
  
@@ -90,21 +101,29 @@ $(function(){
   /********************* EVENT LISTENERS ***********************/
   $selectDate.on('change', function(){
     var val = $(this).val();
+    //reset first all menus to 1st option
+    $('select').not(this).find('option:eq(0)').prop('selected', true);
     writeTable('date', val, 'sort');
   });
 
   $selectType.on('change', function(){
     var val = $(this).val();
+    //reset first all menus to 1st option
+    $('select').not(this).find('option:eq(0)').prop('selected', true);
     writeTable('type', val, 'filter');
   });
 
   $selectWinner.on('change', function(){
     var val = $(this).val();
+    //reset first all menus to 1st option
+    $('select').not(this).find('option:eq(0)').prop('selected', true);
     writeTable('winner', val, 'filter');
   });
 
   $selectLocation.on('change', function(){
     var val = $(this).val();
+    //reset first all menus to 1st option
+    $('select').not(this).find('option:eq(0)').prop('selected', true);
     writeTable('location', val, 'filter');
   });
 
