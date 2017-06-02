@@ -106,6 +106,10 @@ footer {
   line-height: 25px;
 }
 
+#aboutDiv p {
+  padding-bottom: 10px;
+}
+
 .startedMsg {
   padding-bottom: 12px;
 }
@@ -223,7 +227,8 @@ footer {
 /************** BUTTONS ******************/
 
 .btnCustom,
-.btnCustomTeam {
+.btnCustomTeam,
+.btnCustomAbout {
   margin: 3px;
   color: #F4F5F3;
   background-color: #AD8564;
@@ -234,6 +239,7 @@ footer {
   font-size: 15px;
 }
 
+
 .btnCustomTeam:hover,
 .btnCustomTeam:focus,
 .btnCustomTeam:active,
@@ -243,6 +249,12 @@ footer {
 .active {
   color: #F4F5F3;
   background: #75AD77;
+}
+
+.btnCustomAbout:hover,
+.btnCustomAbout:focus,
+.btnCustomTeam:active {
+  background: #EF7D5A;
 }
 
 label {

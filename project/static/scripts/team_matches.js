@@ -63,8 +63,7 @@ $(function(){
               ${el.opponent}
             </a>
           </td>
-          <td>${el.type}</td>
-          <td>${el.line}</td>
+          <td>${el.type} #${el.line}</td>
           <td>${el.team_player_1}`;
 
       if (el.type == 'doubles'){
@@ -94,7 +93,7 @@ $(function(){
       'paging': true,
       'scrollX': true,
       "columnDefs": [
-        { "orderable": false, "targets": 9 }
+        { "orderable": false, "targets": 8 }
       ]
     });
   }

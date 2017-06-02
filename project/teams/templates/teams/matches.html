@@ -10,17 +10,18 @@ class="active"
 
 {% block table%}
 <div class='container-fluid'>
-  <h2>{{curr_team.name}}</h2>
-  <h3>League: {{curr_team.league.year}} {{curr_team.league.name}}</h3>
+<h1>TEAM: {{curr_team.name}}</h1>
+<h3>League: {{curr_team.league.year}} {{curr_team.league.name}}</h3>
 </div>
+
+{% include 'teamnav.html' %}
 
 <div class='container'>
   <table class="table table-bordered" id="tableMatches">
     <thead>
       <th class="text-left">Date</th>
       <th class="text-left">Opponent Name</th>
-      <th class='text-left'>Match Type</th>
-      <th class="text-left">Line #</th>
+      <th class='text-left'>Match Type/Line #</th>
       <th class="text-left">Team Player/s</th>
       <th class="text-left">Opponent/s</th>
       <th class="text-left">Won?</th>
