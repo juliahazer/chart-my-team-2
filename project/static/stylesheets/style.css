@@ -120,6 +120,11 @@ footer {
 }
 
 /************* NAV BAR *************/
+#teamNavMenu{
+  padding-top: 15px;
+}
+
+
 #space {
   height: 90px; /*same height as navbar*/
 }

@@ -1,45 +1,79 @@
 {% extends 'base.html' %}
 
-{% block content %}
-
 {% block teamActive %}
 class="active"
 {% endblock %}
 
+{% block style %}
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
+{% endblock %}
+
+{% block table%}
 <div class='container-fluid'>
-  <h2>{{curr_team.name}}</h2>
-  <h3>League: {{curr_team.league.year}} {{curr_team.league.name}}</h3>
-  <table class="table" id="tableMatches">
+<h1>TEAM: {{curr_team.name}}</h1>
+<h3>League: {{curr_team.league.year}} {{curr_team.league.name}}</h3>
+</div>
+
+<div class='container-fluid' id="teamNavMenu">
+  <div class="form-group row" id="selectTeamViewDiv">
+    <div class="col-lg-3 col-lg-offset-2
+      col-md-2 col-md-offset-2
+      col-sm-3 col-sm-offset-1
+      col-xs-12
+      col-form-label">
+      <label id="selectTeamViewLabel" 
+        for="selectTeamView"> 
+        Pages for this team:
+      </label>
+    </div>
+    <div class="col-lg-3 col-lg-offset-0
+      col-md-6 col-md-offset-0
+      col-sm-7 col-sm-offset-0
+      col-xs-10 col-xs-offset-1">
+      <select onchange="location = this.value;" class="form-control" id="teamViewSelect">
+        <option value="{{url_for('teams.show', id = curr_team.id)}}">Team Graphs</option>
+        <option value="{{url_for('teams.matches', id =curr_team.id)}}">Team Matches</option>
+        <option value="{{url_for('teams.scorecards', id=curr_team.id)}}" selected>Team Scorecards</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div class='container'>
+  <table class="table table-bordered text-left" id="tableScorecards">
     <thead>
-      <th class="text-center">#</th>
-      <th class="text-center">Date</th>
-      <th class="text-center">Opponent</th>
-      <th class="text-center">See Matches</th>
-      <th class="text-center">Link to USTA</th>
+      <th class="text-left">#</th>
+      <th class="text-left">Date</th>
+      <th class="text-left">Opponent</th>
+      <th class="text-left">Link to USTA</th>
     </thead>
-    <tbody>
+    <tbody class="text-left" id="tableBody">
       {% for scorecard in scorecards %}
-        <tr>
+        <tr class="text-left">
           <td>{{loop.index}}</td>
           <td>{{scorecard.date.strftime('%m-%d-%y')}}</td>
           <td>
             {% if scorecard.team_v.id == curr_team.id %}
-              <a href="{{ url_for('teams.show', id=scorecard.home_team_id) }}"> {{scorecard.team_h.name}}
+              <a href="{{ url_for('teams.scorecards', id=scorecard.home_team_id) }}"> {{scorecard.team_h.name}}
               </a>
             {% else %}
-              <a href="{{ url_for('teams.show', id=scorecard.visitor_team_id) }}"> 
+              <a href="{{ url_for('teams.scorecards', id=scorecard.visitor_team_id) }}"> 
                 {{scorecard.team_v.name}}
               </a>
             {% endif %}
           </td>
-          <td>
-            <a href="{{ url_for('scorecards.matches', id=scorecard.id)}}">Matches</a>
-          </td>
-          <td><a href="https://www.ustanorcal.com/scorecard.asp?id={{scorecard.id}}" target="_blank">link</a></td>
+          <td><a class="btn btn-primary btn-sm" role="button" href="https://www.ustanorcal.com/scorecard.asp?id={{scorecard.id}}" target="_blank">
+              Link
+            </a></td>
         </tr>
       {% endfor %}
     </tbody>
   <table>
 </div>
 
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
+<script src="{{ url_for('static', filename='scripts/team_scorecards.js') }}"></script>
 {% endblock %}
