@@ -71,7 +71,7 @@ a:active {
 }
 
 footer {
-  padding-top: 20px;
+  padding-top: 40px;
   color: #564036;
   font-size: 12px;
 }
@@ -117,7 +117,7 @@ footer {
 .navbar-custom .navbar-brand:focus,
 .navbar-custom .navbar-brand:active,
 .navbar-custom .navbar-brand.active {
-  color: #A8927B;
+  color: #659667;
 }
 
 /*Nav bar links*/
@@ -141,8 +141,9 @@ footer {
   outline: none;
 }
 
-.navbar-custom .navbar-nav li a:focus {
-  color: #4F9FCF;
+.navbar-custom .navbar-nav li a:focus,
+.navbar-custom .navbar-nav li a:active {
+  color: #A8927B;
   outline: none;
 }
 
@@ -283,6 +284,14 @@ div.tooltip {
 
   .svgRacket {
     height: 60px;
+  }
+}
+
+@media (min-width: 768px){
+  #brandSpan {
+    display: inline-block;
+    position:relative;
+    top: -10px;
   }
 }
 

@@ -2,6 +2,10 @@
 
 {% block content %}
 
+{% block teamActive %}
+class="active"
+{% endblock %}
+
 <div class='container-fluid'>
   <h2>{{curr_team.name}}</h2>
   <h3>League: {{curr_team.league.year}} {{curr_team.league.name}}</h3>

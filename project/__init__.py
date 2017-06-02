@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for
+from flask import Flask, redirect, url_for, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_modus import Modus
 import os
@@ -34,6 +34,10 @@ app.register_blueprint(rosters_blueprint, url_prefix='/rosters')
 @app.route('/')
 def root(): 
   return redirect(url_for('teams.index'))
+
+@app.route('/about')
+def about():
+    return render_template('/about.html')
 
 @app.after_request
 def add_header(r):
